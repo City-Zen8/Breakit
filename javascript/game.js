@@ -14,14 +14,8 @@ var Game=new Class({
 	initialize: function(element, rootPath) {
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
-		this.rootPath=(rootPath?rootPath:'');
-		var size=element.getSize();
-		this.width=size.x;
-		this.height=size.y;
-		this.canvas.width=this.width;
-		this.canvas.height=this.height;
-		this.canvas.setStyle('display','block');
-		this.aspectRatio=this.height/200;
+		this.element=element;
+		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
 		if(this.canvas.getContext)
@@ -46,6 +40,25 @@ var Game=new Class({
 		this.sounds['crash'] = new Audio(this.rootPath+'sounds/33675__pauliep83__crash.ogg');
 		this.sounds['badadum'] = new Audio(this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
 		},
+	resize : function() {
+		this.fit();
+		for(var i=this.balls.length-1; i>=0; i--)
+			{
+			this.balls[i].speed=0;
+			this.balls[i].fit();
+			}
+		this.bar.fit();
+		this.populate();
+		},
+	fit : function() {
+		var size=this.element.getSize();
+		this.width=size.x;
+		this.height=size.y;
+		this.canvas.width=this.width;
+		this.canvas.height=this.height;
+		this.canvas.setStyle('display','block');
+		this.aspectRatio=this.height/200;
+		},
 	main : function() {
 		if(!this.bricks.length)
 			{
@@ -54,6 +67,10 @@ var Game=new Class({
 			for(var i=this.balls.length-1; i>=0; i--)
 				{
 				this.balls[i].speed=0;
+				}
+			while(this.bar.shots[0])
+				{
+				this.bar.shots[0].clear();
 				}
 			this.populate();
 			}

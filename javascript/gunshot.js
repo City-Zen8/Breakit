@@ -19,7 +19,7 @@ var GunShot=new Class({
 		this.y = y;
 		this.game.sounds['gunshot'].play();
 		this.draw();
-		this.move.delay(20,this);
+		this.timer=this.move.delay(20,this);
 		},
 	draw : function() {
 			this.game.context.fillStyle = "#ff0000";
@@ -44,14 +44,16 @@ var GunShot=new Class({
 			else
 				{
 				this.draw();
-				this.move.delay(20,this);
+				this.timer=this.move.delay(20,this);
 				}
 		},
 	remove : function() {
 			this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.height-1);
 		},
 	clear : function() {
+		clearTimeout(this.timer);
 		this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.game.height-this.y);
+		this.game.bar.shots.splice(this.game.bar.shots.indexOf(this),1);
 		},
 	destruct : function() {
 		}

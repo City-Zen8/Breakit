@@ -13,14 +13,18 @@
 var Bar=new Class({
 	initialize: function(game) {
 		this.game = game;
+		this.fit();
+		this.x = (this.game.width/2)-(this.width/2);
+		this.draw();
+		this.shots=new Array();
+		this.game.canvas.addEvent('mousemove',this.move.bind(this));
+		window.addEvent('keydown',this.fire.bind(this));
+		},
+	fit : function() {
 		this.width = 30*this.game.aspectRatio;
 		this.height = 5*this.game.aspectRatio;
 		this.yMargin = 5*this.game.aspectRatio;
 		this.y = this.game.height-this.height-this.yMargin;
-		this.x = (this.game.width/2)-(this.width/2);
-		this.draw();
-		this.game.canvas.addEvent('mousemove',this.move.bind(this));
-		window.addEvent('keydown',this.fire.bind(this));
 		},
 	draw : function() {
 		this.game.context.fillStyle = "#333";
@@ -32,7 +36,8 @@ var Bar=new Class({
 	fire : function(e) {
 		if(e.key=='space')
 			{
-			new window[(e.control?'LazerShot':'GunShot')](this.game, this.x+(this.width/2), this.y);
+			if(this.shots.length<=10)
+				this.shots.push(new window[(e.control?'LazerShot':'GunShot')](this.game, this.x+(this.width/2), this.y));
 			}
 		e.preventDefault();
 		e.stop();

@@ -13,13 +13,16 @@
 var Ball=new Class({
 	initialize: function(game) {
 		this.game = game;
-		this.r = 2.5*this.game.aspectRatio;
+		this.fit();
 		this.x =(this.game.width/2)-(this.r/2);
 		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
 		this.speed = 0;
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
 		this.draw();
 		this.game.canvas.addEvent('click',this.start.bind(this));
+		},
+	fit : function() {
+		this.r = 2.5*this.game.aspectRatio;
 		},
 	draw : function() {
 		this.game.context.fillStyle = "#333";
