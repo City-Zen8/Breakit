@@ -17,8 +17,7 @@ var GunShot=new Class({
 		this.height = 2*this.game.aspectRatio;
 		this.x = x;
 		this.y = y;
-		var snd = new Audio("sounds/20352__cognito-perceptu__gunshot.ogg");
-		snd.play();
+		this.game.sounds['gunshot'].play();
 		this.draw();
 		this.move.delay(20,this);
 		},

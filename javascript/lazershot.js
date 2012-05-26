@@ -16,8 +16,7 @@ var LazerShot=new Class({
 		this.width = 0.5*this.game.aspectRatio;
 		this.height = y;
 		this.x = x;
-		var snd = new Audio("sounds/77087__supraliminal__laser-short.ogg");
-		snd.play();
+		this.game.sounds['lazer'].play();
 		this.draw();
 		this.remove.delay(200,this);
 		},

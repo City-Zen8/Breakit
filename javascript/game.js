@@ -11,9 +11,10 @@
  */
 
 var Game=new Class({
-	initialize: function(element) {
+	initialize: function(element, rootPath) {
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
+		this.rootPath=(rootPath?rootPath:'');
 		var size=element.getSize();
 		this.width=size.x;
 		this.height=size.y;
@@ -37,12 +38,18 @@ var Game=new Class({
 			{
 			element.appendChild(document.createTextNode('Go buy a real browser !'));
 			}
+		this.sounds=new Array();
+		this.sounds['lazer'] = new Audio(this.rootPath+'sounds/77087__supraliminal__laser-short.ogg');
+		this.sounds['boing'] = new Audio(this.rootPath+'sounds/88451__davidou__boing.ogg');
+		this.sounds['boing2'] = new Audio(this.rootPath+'sounds/48939__itsallhappening__boing.ogg');
+		this.sounds['gunshot'] = new Audio(this.rootPath+'sounds/20352__cognito-perceptu__gunshot.ogg');
+		this.sounds['crash'] = new Audio(this.rootPath+'sounds/33675__pauliep83__crash.ogg');
+		this.sounds['badadum'] = new Audio(this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
 		},
 	main : function() {
 		if(!this.bricks.length)
 			{
-			var snd = new Audio("sounds/37215__simon-lacelle__ba-da-dum.ogg");
-			snd.play();
+			this.sounds['badadum'].play();
 			this.level++;
 			for(var i=this.balls.length-1; i>=0; i--)
 				{

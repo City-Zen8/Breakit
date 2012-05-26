@@ -34,6 +34,8 @@ var Bar=new Class({
 			{
 			new window[(e.control?'LazerShot':'GunShot')](this.game, this.x+(this.width/2), this.y);
 			}
+		e.preventDefault();
+		e.stop();
 		},
 	move : function(e) {
 		var x=e.page.x-this.game.canvas.getPosition().x-(this.width/2);
