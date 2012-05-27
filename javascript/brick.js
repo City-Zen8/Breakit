@@ -50,7 +50,7 @@ var Brick=new Class({
 		//this.game.context.fillText('s'+this.solidity, this.x, this.y, this.width);
 		},
 	remove : function() {
-		this.game.sounds['boing'].play();
+		this.game.play('boing');
 		this.solidity--;
 		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
 		if(this.solidity)

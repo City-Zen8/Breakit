@@ -17,7 +17,7 @@ var GunShot=new Class({
 		this.height = 2*this.game.aspectRatio;
 		this.x = x;
 		this.y = y;
-		this.game.sounds['gunshot'].play();
+		this.game.play('gunshot');
 		this.draw();
 		this.timer=this.move.delay(20,this);
 		},

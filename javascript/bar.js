@@ -16,6 +16,7 @@ var Bar=new Class({
 		this.fit();
 		this.x = (this.game.width/2)-(this.width/2);
 		this.fireMode='Lazer';
+		this.fireMode='Gun';
 		this.glueMode=false;
 		this.draw();
 		this.shots=new Array();

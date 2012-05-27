@@ -43,7 +43,7 @@ var Ball=new Class({
 			var nextY=this.y + Math.sin(this.angle)*this.speed;
 			if(nextY >this.game.height)
 				{
-				this.game.sounds['crash'].play();
+				this.game.play('crash');
 				this.speed=0;
 				this.inverseAngleY();
 				}
@@ -90,7 +90,7 @@ var Ball=new Class({
 						&&nextY+this.r>this.game.bar.y
 						&&nextY<this.game.bar.y+(this.game.bar.height/2))
 						{
-						this.game.sounds['boing2'].play();
+						this.game.play('boing2');
 						this.inverseAngleY((((nextX-this.game.bar.x-(this.game.bar.width/2))/(this.game.bar.width/2))/2)*-(Math.PI/5));
 						if(this.angle<9*Math.PI/8&&this.angle>4*Math.PI/8)
 							{

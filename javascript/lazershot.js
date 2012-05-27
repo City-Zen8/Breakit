@@ -16,7 +16,7 @@ var LazerShot=new Class({
 		this.width = 0.5*this.game.aspectRatio;
 		this.height = y;
 		this.x = x;
-		this.game.sounds['lazer'].play();
+		this.game.play('lazer');
 		this.draw();
 		this.timer=this.remove.delay(200,this);
 		},

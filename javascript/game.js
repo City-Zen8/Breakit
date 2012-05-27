@@ -15,7 +15,7 @@ var Game=new Class({
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.element=element;
-		this.rootPath=rootPath;
+		this.rootPath=(rootPath?rootPath:'');
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
@@ -67,7 +67,7 @@ var Game=new Class({
 	main : function() {
 		if(!this.bricks.length)
 			{
-			this.sounds['badadum'].play();
+			this.play('badadum');
 			this.level++;
 			for(var i=this.balls.length-1; i>=0; i--)
 				{
@@ -101,6 +101,12 @@ var Game=new Class({
 					gYMargin+bYDecal+k*bHeight+bMargin*(k-1),bWidth,bHeight));
 				}
 			}
+		},
+	/* Sound management */
+	play : function(sound) {
+		//this.sounds[sound].pause();
+		this.sounds[sound].currentTime=0;
+		this.sounds[sound].play();
 		},
 	/* Events management */
 	clickHandler : function(e) {
