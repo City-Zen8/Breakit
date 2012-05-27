@@ -31,7 +31,7 @@ var Game=new Class({
 			this.timer=this.main.delay(30, this);
 			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
 			this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
-			this.canvas.addEvent('keydown',this.keyHandler.bind(this),true);
+			window.addEvent('keydown',this.keyHandler.bind(this),true);
 			}
 		else
 			{
@@ -122,6 +122,7 @@ var Game=new Class({
 		e.stop();
 		},
 	keyHandler : function(e) {
+		var used=true;
 		switch(e.key)
 			{
 			case 'space':
@@ -143,8 +144,12 @@ var Game=new Class({
 						}
 					}
 				break;
+			default:
+				used=false;
+				break;
 			}
-		e.stop();
+		if(used)
+			e.stop();
 		},
 	/* End */
 	close : function() {
