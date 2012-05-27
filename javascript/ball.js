@@ -19,7 +19,6 @@ var Ball=new Class({
 		this.speed = 0;
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
 		this.draw();
-		this.game.canvas.addEvent('click',this.start.bind(this));
 		},
 	fit : function() {
 		this.r = 2.5*this.game.aspectRatio;
@@ -33,11 +32,8 @@ var Ball=new Class({
 	remove : function() {
 		this.game.context.clearRect(this.x-this.r, this.y-this.r, this.r*2, this.r*2);
 		},
-	start : function(e) {
-		if(!e.rightClick)
-			{
-			this.speed=(0.6+(this.game.level/10))*this.game.aspectRatio;
-			}
+	start : function() {
+		this.speed=(0.6+(this.game.level/10))*this.game.aspectRatio;
 		},
 	move : function() {
 		this.remove();
@@ -105,6 +101,8 @@ var Ball=new Class({
 							this.angle=15*Math.PI/4;
 							}
 						nextY=this.game.bar.y-this.r;
+						if(this.game.bar.glueMode)
+							this.speed=0;
 						}
 					this.y=nextY;
 					}

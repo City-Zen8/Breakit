@@ -15,6 +15,7 @@ var Game=new Class({
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.element=element;
+		this.rootPath=rootPath;
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
@@ -23,10 +24,14 @@ var Game=new Class({
 			element.appendChild(this.canvas);
 			this.context = this.canvas.getContext('2d');
 			this.bar= new Bar(this);
-			this.balls= new Array(new Ball(this),new Ball(this),new Ball(this));
+			this.canvas.addEvent('mousemove',this.bar.move.bind(this.bar));
+			this.balls=new Array(new Ball(this),new Ball(this),new Ball(this));
 			this.level=1;
 			this.populate();
 			this.timer=this.main.delay(30, this);
+			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
+			this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
+			this.canvas.addEvent('keydown',this.keyHandler.bind(this),true);
 			}
 		else
 			{
@@ -97,6 +102,59 @@ var Game=new Class({
 				}
 			}
 		},
+	/* Events management */
+	clickHandler : function(e) {
+		if(e.rightClick)
+			{
+			this.bar.fire();
+			}
+		else
+			{
+			for(var i=this.balls.length-1; i>=0; i--)
+				{
+				if(!this.balls[i].speed)
+					{
+					this.balls[i].start();
+					break;
+					}
+				}
+			}
+		e.stop();
+		},
+	keyHandler : function(e) {
+		switch(e.key)
+			{
+			case 'space':
+				this.bar.fire();
+				break;
+			case 'left':
+				this.bar.go(false);
+				break;
+			case 'right':
+				this.bar.go(true);
+				break;
+			case 'up':
+				for(var i=this.balls.length-1; i>=0; i--)
+					{
+					if(!this.balls[i].speed)
+						{
+						this.balls[i].start();
+						break;
+						}
+					}
+				break;
+			}
+		e.stop();
+		},
+	/* End */
+	close : function() {
+		if(this.timer)
+			clearTimeout(this.timer);
+		this.canvas.removeEvents('mousemove');
+		this.canvas.removeEvents('click');
+		window.removeEvents('keydown');
+		},
 	destruct : function() {
+		alert('x');
 		}
 });
