@@ -13,6 +13,7 @@
 var Bar=new Class({
 	initialize: function(game) {
 		this.game = game;
+		this.sizeFactor=3;
 		this.fit();
 		this.x = (this.game.width/2)-(this.width/2);
 		this.fireMode='Lazer';
@@ -21,8 +22,25 @@ var Bar=new Class({
 		this.draw();
 		this.shots=new Array();
 		},
+	setMode : function(mode) {
+		switch(mode)
+			{
+			case 's':
+				this.sizeFactor=2;
+				break;
+			case 'm':
+				this.sizeFactor=3;
+				break;
+			case 'l':
+				this.sizeFactor=4;
+				break;
+			case 'xl':
+				this.sizeFactor=5;
+				break;
+			}
+		},
 	fit : function() {
-		this.width = 30*this.game.aspectRatio;
+		this.width = this.sizeFactor*10*this.game.aspectRatio;
 		this.height = 5*this.game.aspectRatio;
 		this.yMargin = 5*this.game.aspectRatio;
 		this.y = this.game.height-this.height-this.yMargin;
