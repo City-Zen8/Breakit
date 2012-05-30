@@ -11,11 +11,14 @@
  */
 
 var Game=new Class({
-	initialize: function(element, rootPath) {
+	initialize: function(element, rootPath,noticeFunction)
+		{
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.element=element;
 		this.rootPath=(rootPath?rootPath:'');
+		if(noticeFunction)
+			this.notice=noticeFunction;
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
@@ -28,6 +31,7 @@ var Game=new Class({
 			this.balls=new Array(new Ball(this),new Ball(this),new Ball(this));
 			this.level=1;
 			this.populate();
+			this.notice('level',this.level);
 			this.timer=this.main.delay(30, this);
 			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
 			this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
@@ -45,7 +49,18 @@ var Game=new Class({
 		this.sounds['crash'] = new Audio(this.rootPath+'sounds/33675__pauliep83__crash.ogg');
 		this.sounds['badadum'] = new Audio(this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
 		},
+	pause : function() {
+		console.log('pause');
+		clearTimeout(this.timer);
+		this.timer=0;
+		},
+	resume : function() {
+		console.log('resume');
+		if(!this.timer)
+			this.timer=this.main.delay(30, this);
+		},
 	resize : function() {
+		console.log('resize');
 		this.fit();
 		for(var i=this.balls.length-1; i>=0; i--)
 			{
@@ -69,6 +84,7 @@ var Game=new Class({
 			{
 			this.play('badadum');
 			this.level++;
+			this.notice('level',this.level);
 			for(var i=this.balls.length-1; i>=0; i--)
 				{
 				this.balls[i].speed=0;
@@ -104,9 +120,10 @@ var Game=new Class({
 		},
 	/* Sound management */
 	play : function(sound) {
-		//this.sounds[sound].pause();
+		this.sounds[sound].pause();
 		this.sounds[sound].currentTime=0;
 		this.sounds[sound].play();
+		//this.sounds[sound].cloneNode().play();
 		},
 	/* Events management */
 	clickHandler : function(e) {
@@ -164,6 +181,8 @@ var Game=new Class({
 		this.canvas.removeEvents('mousemove');
 		this.canvas.removeEvents('click');
 		window.removeEvents('keydown');
+		},
+	notice : function() {
 		},
 	destruct : function() {
 		alert('x');

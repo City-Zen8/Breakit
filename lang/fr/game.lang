@@ -1,0 +1,10 @@
+# Main
+title=Casse Brique
+# Menu
+menu_game=Nouvelle partie
+menu_new=Nouvelle partie
+menu_new_tooltip=Commencer une nouvelle partie
+menu_pause=Pause
+menu_pause_tooltip=Mettre en pause
+# Notifications
+level=Niveau $

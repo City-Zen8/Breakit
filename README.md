@@ -1,7 +1,7 @@
 CasseBriques
 ============
 
-CasseBriques is a free game in HTML5 and JavaScript
+CasseBriques is a free game in HTML5 and JavaScript created for learning purpose. French speaking developpers can get a step by step tutorial here : http://www.insertafter.com/articles-html5_casse_brique.html . English version will come soon.
 
 Contributors
 -------------
