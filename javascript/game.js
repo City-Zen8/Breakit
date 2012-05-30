@@ -28,7 +28,8 @@ var Game=new Class({
 			this.context = this.canvas.getContext('2d');
 			this.bar= new Bar(this);
 			this.canvas.addEvent('mousemove',this.bar.move.bind(this.bar));
-			this.balls=new Array(new Ball(this),new Ball(this),new Ball(this));
+			this.balls=new Array(new Ball(this));
+			this.goodies=new Array();
 			this.level=1;
 			this.populate();
 			this.notice('level',this.level);
@@ -48,6 +49,8 @@ var Game=new Class({
 		this.sounds['gunshot'] = new Audio(this.rootPath+'sounds/20352__cognito-perceptu__gunshot.ogg');
 		this.sounds['crash'] = new Audio(this.rootPath+'sounds/33675__pauliep83__crash.ogg');
 		this.sounds['badadum'] = new Audio(this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
+		this.sounds['fart'] = new Audio(this.rootPath+'sounds/46985__ifartinurgeneraldirection__toot.ogg');
+		this.sounds['bleep'] = new Audio(this.rootPath+'sounds/3062__speedy__bleep.ogg');
 		},
 	pause : function() {
 		console.log('pause');
@@ -99,6 +102,8 @@ var Game=new Class({
 			{
 			for(var i=this.balls.length-1; i>=0; i--)
 				this.balls[i].move();
+			for(var i=this.goodies.length-1; i>=0; i--)
+				this.goodies[i].move();
 			this.timer=this.main.delay(5, this);
 			}
 		},

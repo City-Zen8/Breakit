@@ -16,8 +16,8 @@ var Bar=new Class({
 		this.sizeFactor=3;
 		this.fit();
 		this.x = (this.game.width/2)-(this.width/2);
-		this.fireMode='Lazer';
-		this.fireMode='Gun';
+		this.fireMode='';
+		this.maxShots=1;
 		this.glueMode=false;
 		this.draw();
 		this.shots=new Array();
@@ -25,6 +25,9 @@ var Bar=new Class({
 	setMode : function(mode) {
 		switch(mode)
 			{
+			case 'xs':
+				this.sizeFactor=1;
+				break;
 			case 's':
 				this.sizeFactor=2;
 				break;
@@ -38,6 +41,7 @@ var Bar=new Class({
 				this.sizeFactor=5;
 				break;
 			}
+		this.width = this.sizeFactor*10*this.game.aspectRatio;
 		},
 	fit : function() {
 		this.width = this.sizeFactor*10*this.game.aspectRatio;
@@ -53,7 +57,7 @@ var Bar=new Class({
 		this.game.context.clearRect(0, this.y, this.game.width, this.game.height);
 		},
 	fire : function() {
-		if(this.shots.length<=10)
+		if(this.fireMode&&this.shots.length<=this.maxShots)
 			this.shots.push(new window[this.fireMode+'Shot'](this.game, this.x+(this.width/2), this.y));
 		},
 	moveTo : function(x) {

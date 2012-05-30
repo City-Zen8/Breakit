@@ -17,6 +17,8 @@ Sounds
 * Cognito perceptu : http://www.freesound.org/people/cognito%20perceptu/sounds/20352/ -  Public domain
 * Itsallhapening : http://www.freesound.org/people/itsallhappening/sounds/48939/ - Creative Commons Atribution Licence
 * FreqMan : http://www.freesound.org/people/FreqMan/sounds/43604 - Creative Commons Atribution Licence
+* IFartInUrGeneralDirection : http://www.freesound.org/people/IFartInUrGeneralDirection/sounds/46985/ - Creative Commons Atribution Licence
+* SpeedY : http://www.freesound.org/people/SpeedY/sounds/3062/ - Public domain
 
 License
 -------

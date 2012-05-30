@@ -44,8 +44,13 @@ var Ball=new Class({
 			if(nextY >this.game.height)
 				{
 				this.game.play('crash');
-				this.speed=0;
-				this.inverseAngleY();
+				if(this.game.balls.length>1)
+					this.game.balls.splice(this.game.balls.indexOf(this),1);
+				else
+					{
+					this.speed=0;
+					this.inverseAngleY();
+					}
 				}
 			else
 				{

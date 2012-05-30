@@ -56,7 +56,11 @@ var Brick=new Class({
 		if(this.solidity)
 			this.draw()
 		else
+			{
 			this.game.bricks.splice(this.game.bricks.indexOf(this),1);
+			if(this.game.goodies.length<5&&Math.floor((Math.random()*5+this.game.level)+1)>4)
+				this.game.goodies.push(new Goodie(this.game,this.x,this.y));
+			}
 		},
 	hit : function(x,y,r) {
 		var hit=0;
