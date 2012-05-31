@@ -19,7 +19,6 @@ var GunShot=new Class({
 		this.y = y;
 		this.game.play('gunshot');
 		this.draw();
-		this.timer=this.move.delay(20,this);
 		},
 	draw : function() {
 			this.game.context.fillStyle = "#ff0000";
@@ -27,7 +26,7 @@ var GunShot=new Class({
 		},
 	move : function() {
 			this.remove();
-			this.y-=this.height/2;
+			this.y-=this.height/4;
 			for(var i=this.game.bricks.length-1; i>=0; i--)
 				{
 				if(this.game.bricks[i].x<this.x&&this.game.bricks[i].x+this.game.bricks[i].width>this.x
@@ -41,17 +40,11 @@ var GunShot=new Class({
 				}
 			if(this.y<0)
 				this.clear();
-			else
-				{
-				this.draw();
-				this.timer=this.move.delay(20,this);
-				}
 		},
 	remove : function() {
 			this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.height-1);
 		},
 	clear : function() {
-		clearTimeout(this.timer);
 		this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.game.height-this.y);
 		this.game.bar.shots.splice(this.game.bar.shots.indexOf(this),1);
 		},

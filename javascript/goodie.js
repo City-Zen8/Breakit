@@ -19,7 +19,6 @@ var Goodie=new Class({
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
 		this.type = Math.floor((Math.random()*9)+1);
-		this.draw();
 		},
 	draw : function() {
 		switch(this.speed)
@@ -153,7 +152,6 @@ var Goodie=new Class({
 		else
 			{
 			this.y=nextY;
-			this.draw();
 			}
 		},
 	clear : function() {
