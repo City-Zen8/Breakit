@@ -22,7 +22,7 @@ var GunShot=new Class({
 		},
 	draw : function() {
 			this.game.context.fillStyle = "#ff0000";
-			this.game.context.fillRect(this.x-(this.width/2), this.y, this.width, this.height);
+			this.game.context.fillRect(this.x, this.y, this.width, this.height);
 		},
 	move : function() {
 			this.remove();
@@ -42,10 +42,9 @@ var GunShot=new Class({
 				this.clear();
 		},
 	remove : function() {
-			this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.height-1);
+			this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
 		},
 	clear : function() {
-		this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.game.height-this.y);
 		this.game.bar.shots.splice(this.game.bar.shots.indexOf(this),1);
 		},
 	destruct : function() {
