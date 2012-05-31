@@ -25,7 +25,6 @@ var Brick=new Class({
 			this.solidity=3;
 		else
 			this.solidity=4;
-		this.draw();
 		},
 	draw : function() {
 		switch(this.solidity)
@@ -47,7 +46,6 @@ var Brick=new Class({
 				break;
 			}
 		this.game.context.fillRect(this.x, this.y, this.width, this.height);
-		//this.game.context.fillText('s'+this.solidity, this.x, this.y, this.width);
 		},
 	remove : function() {
 		this.game.play('boing');

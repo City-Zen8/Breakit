@@ -102,6 +102,8 @@ var Game=new Class({
 			{
 			for(var i=this.balls.length-1; i>=0; i--)
 				this.balls[i].move();
+			for(var i=this.bricks.length-1; i>=0; i--)
+				this.bricks[i].draw();
 			for(var i=this.goodies.length-1; i>=0; i--)
 				this.goodies[i].move();
 			this.timer=this.main.delay(5, this);

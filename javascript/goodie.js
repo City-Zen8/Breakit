@@ -113,19 +113,19 @@ var Goodie=new Class({
 					break;
 				case 6:
 					if(this.game.bar.fireMode=='Gun')
-						this.maxShots++;
+						this.game.bar.maxShots++;
 					else
 						this.game.bar.fireMode='Gun';
 					break;
 				case 7:
 					if(this.game.bar.fireMode=='Lazer')
-						this.maxShots++;
+						this.game.bar.maxShots++;
 					else
 						this.game.bar.fireMode='Lazer';
 					break;
 				case 8:
 					this.game.bar.fireMode='';
-					this.maxShots=1;
+					this.game.bar.maxShots=1;
 					this.game.bar.glueMode=false;
 					this.game.play('fart');
 					break;
