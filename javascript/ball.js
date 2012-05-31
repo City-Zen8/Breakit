@@ -18,7 +18,6 @@ var Ball=new Class({
 		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
 		this.speed = 0;
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
-		this.draw();
 		},
 	fit : function() {
 		this.r = 2.5*this.game.aspectRatio;
@@ -118,7 +117,6 @@ var Ball=new Class({
 			this.x=this.game.bar.x+this.game.bar.width/2;
 			this.y=this.game.bar.y-this.game.bar.height-(this.r/2);
 			}
-		this.draw();
 		},
 	inverseAngleX : function() {
 		this.angle=(Math.PI - this.angle)%(2*Math.PI);

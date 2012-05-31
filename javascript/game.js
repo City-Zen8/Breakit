@@ -100,16 +100,20 @@ var Game=new Class({
 			}
 		if(this.timer)
 			{
+			this.bar.remove();
 			for(var i=this.bar.shots.length-1; i>=0; i--)
 				this.bar.shots[i].move();
 			for(var i=this.balls.length-1; i>=0; i--)
 				this.balls[i].move();
 			for(var i=this.goodies.length-1; i>=0; i--)
 				this.goodies[i].move();
-			for(var i=this.goodies.length-1; i>=0; i--)
-				this.goodies[i].draw();
 			for(var i=this.bricks.length-1; i>=0; i--)
 				this.bricks[i].draw();
+			for(var i=this.goodies.length-1; i>=0; i--)
+				this.goodies[i].draw();
+			for(var i=this.balls.length-1; i>=0; i--)
+				this.balls[i].draw();
+			this.bar.draw();
 			for(var i=this.bar.shots.length-1; i>=0; i--)
 				this.bar.shots[i].draw();
 			this.timer=this.main.delay(5, this);

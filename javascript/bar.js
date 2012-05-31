@@ -19,7 +19,6 @@ var Bar=new Class({
 		this.fireMode='';
 		this.maxShots=1;
 		this.glueMode=false;
-		this.draw();
 		this.shots=new Array();
 		},
 	setMode : function(mode) {
@@ -68,8 +67,6 @@ var Bar=new Class({
 			this.x = x;
 		else
 			this.x = maxX;
-		this.game.context.clearRect(0, this.y, this.game.width, this.game.height)
-		this.draw();
 		},
 	move : function(e) {
 		var x=e.page.x-this.game.canvas.getPosition().x-(this.width/2);
