@@ -13,6 +13,7 @@
 var Ball=new Class({
 	initialize: function(game) {
 		this.game = game;
+		this.size = 2.5;
 		this.fit();
 		this.x =(this.game.width/2)-(this.r/2);
 		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
@@ -20,7 +21,7 @@ var Ball=new Class({
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
 		},
 	fit : function() {
-		this.r = 2.5*this.game.aspectRatio;
+		this.r = this.size*this.game.aspectRatio;
 		},
 	draw : function() {
 		this.game.context.fillStyle = "#333";
