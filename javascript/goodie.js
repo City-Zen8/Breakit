@@ -18,7 +18,7 @@ var Goodie=new Class({
 		this.y = y;
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
-		this.type = Math.floor((Math.random()*11)+1);
+		this.type = Math.floor(Math.random()*15);
 		},
 	draw : function() {
 		switch(this.speed)
@@ -50,6 +50,9 @@ var Goodie=new Class({
 		this.game.context.textAlign='center';
 		switch(this.type)
 			{
+			case 0:
+				this.game.context.fillText('XS', this.x+(this.width/2), this.y+this.height, this.width);
+				break;
 			case 1:
 				this.game.context.fillText('S', this.x+(this.width/2), this.y+this.height, this.width);
 				break;
@@ -82,6 +85,15 @@ var Goodie=new Class({
 				break;
 			case 11:
 				this.game.context.fillText('Speed', this.x+(this.width/2), this.y+this.height, this.width);
+				break;
+			case 12:
+				this.game.context.fillText('Small', this.x+(this.width/2), this.y+this.height, this.width);
+				break;
+			case 13:
+				this.game.context.fillText('Medium', this.x+(this.width/2), this.y+this.height, this.width);
+				break;
+			case 14:
+				this.game.context.fillText('Big', this.x+(this.width/2), this.y+this.height, this.width);
 				break;
 			}
 		},
@@ -143,6 +155,18 @@ var Goodie=new Class({
 					break;
 				case 11:
 					this.game.bar.speedLimit++;
+					break;
+				case 12:
+					this.game.balls[0].size=1.5;
+					this.game.balls[0].fit();
+					break;
+				case 13:
+					this.game.balls[0].size=2.5;
+					this.game.balls[0].fit();
+					break;
+				case 14:
+					this.game.balls[0].size=3.5;
+					this.game.balls[0].fit();
 					break;
 				}
 			}
