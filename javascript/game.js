@@ -27,16 +27,17 @@ var Game=new Class({
 			element.appendChild(this.canvas);
 			this.context = this.canvas.getContext('2d');
 			this.bar= new Bar(this);
-			this.canvas.addEvent('mousemove',this.bar.move.bind(this.bar));
 			this.balls=new Array(new Ball(this));
 			this.goodies=new Array();
 			this.level=1;
 			this.populate();
 			this.notice('level',this.level);
 			this.timer=this.main.delay(30, this);
+			this.canvas.addEvent('mousemove',this.moveHandler.bind(this));
 			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
 			this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
-			window.addEvent('keydown',this.keyHandler.bind(this),true);
+			window.addEvent('keydown',this.keyDownHandler.bind(this),true);
+			window.addEvent('keyup',this.keyUpHandler.bind(this),true);
 			}
 		else
 			{
@@ -100,7 +101,7 @@ var Game=new Class({
 			}
 		if(this.timer)
 			{
-			this.bar.remove();
+			this.bar.move();
 			for(var i=this.bar.shots.length-1; i>=0; i--)
 				this.bar.shots[i].move();
 			for(var i=this.balls.length-1; i>=0; i--)
@@ -143,6 +144,10 @@ var Game=new Class({
 		//this.sounds[sound].cloneNode().play();
 		},
 	/* Events management */
+	moveHandler : function(e) {
+		var x=e.page.x-this.canvas.getPosition().x-(this.bar.width/2);
+		this.bar.moveTo(x);
+		},
 	clickHandler : function(e) {
 		if(e.rightClick)
 			{
@@ -161,7 +166,24 @@ var Game=new Class({
 			}
 		e.stop();
 		},
-	keyHandler : function(e) {
+	keyDownHandler : function(e) {
+		var used=true;
+		switch(e.key)
+			{
+			case 'left':
+				this.bar.setDirection(-1);
+				break;
+			case 'right':
+				this.bar.setDirection(1);
+				break;
+			default:
+				used=false;
+				break;
+			}
+		if(used)
+			e.stop();
+		},
+	keyUpHandler : function(e) {
 		var used=true;
 		switch(e.key)
 			{
@@ -169,10 +191,8 @@ var Game=new Class({
 				this.bar.fire();
 				break;
 			case 'left':
-				this.bar.go(false);
-				break;
 			case 'right':
-				this.bar.go(true);
+				this.bar.setDirection(0);
 				break;
 			case 'up':
 				for(var i=this.balls.length-1; i>=0; i--)

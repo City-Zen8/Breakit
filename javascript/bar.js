@@ -18,6 +18,9 @@ var Bar=new Class({
 		this.x = (this.game.width/2)-(this.width/2);
 		this.fireMode='';
 		this.maxShots=1;
+		this.speed=1;
+		this.speedLimit=5;
+		this.direction=0;
 		this.glueMode=false;
 		this.shots=new Array();
 		},
@@ -60,23 +63,30 @@ var Bar=new Class({
 			this.shots.push(new window[this.fireMode+'Shot'](this.game, this.x+(this.width/2), this.y));
 		},
 	moveTo : function(x) {
-		var maxX = this.game.width - this.width;
-		if(x<=0)
-			this.x=0;
-		else if(x < maxX)
-			this.x = x;
-		else
-			this.x = maxX;
-		},
-	move : function(e) {
-		var x=e.page.x-this.game.canvas.getPosition().x-(this.width/2);
 		if(x!=this.x)
 			{
-			this.moveTo(x);
+			var maxX = this.game.width - this.width;
+			if(x<=0)
+				this.x=0;
+			else if(x < maxX)
+				this.x = x;
+			else
+				this.x = maxX;
 			}
 		},
-	go : function(right) {
-		this.moveTo(this.x+((right?1:-1)*10*this.game.aspectRatio));
+	move : function(e) {
+		this.remove();
+		if(this.direction!=0)
+			{
+			this.moveTo(this.x+(this.direction*this.speed*this.game.aspectRatio/5));
+			if(this.speed<this.speedLimit)
+				this.speed++;
+			}
+		},
+	setDirection : function(direction) {
+		if(direction!=this.direction)
+			this.speed=0;
+		this.direction=direction;
 		},
 	destruct : function() {
 		}
