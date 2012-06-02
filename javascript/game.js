@@ -26,12 +26,7 @@ var Game=new Class({
 			{
 			element.appendChild(this.canvas);
 			this.context = this.canvas.getContext('2d');
-			this.bar= new Bar(this);
-			this.balls=new Array(new Ball(this));
-			this.goodies=new Array();
-			this.level=1;
-			this.populate();
-			this.notice('level',this.level);
+			this.reset();
 			this.timer=this.main.delay(30, this);
 			this.canvas.addEvent('mousemove',this.moveHandler.bind(this));
 			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
@@ -52,6 +47,15 @@ var Game=new Class({
 		this.sounds['badadum'] = new Audio(this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
 		this.sounds['fart'] = new Audio(this.rootPath+'sounds/46985__ifartinurgeneraldirection__toot.ogg');
 		this.sounds['bleep'] = new Audio(this.rootPath+'sounds/3062__speedy__bleep.ogg');
+		},
+	reset : function() {
+			this.context.clearRect(0,0,this.width,this.height);
+			this.bar= new Bar(this);
+			this.balls=new Array(new Ball(this));
+			this.goodies=new Array();
+			this.level=1;
+			this.populate();
+			this.notice('level',this.level);
 		},
 	pause : function() {
 		console.log('pause');
@@ -122,7 +126,7 @@ var Game=new Class({
 		},
 	populate : function() {
 		var bHeight=10*this.aspectRatio, bWidth=30*this.aspectRatio, bMargin=2,
-			gXMargin=10*this.aspectRatio, gYMargin=10*this.aspectRatio;
+			gXMargin=20*this.aspectRatio, gYMargin=15*this.aspectRatio;
 		bXDecal=Math.floor(((this.width-(gXMargin*2))%(bWidth+bMargin))/2),
 		bYDecal=Math.floor((((this.height/2)-(gYMargin*2))%(bHeight+bMargin))/2),
 		this.bricks=new Array();

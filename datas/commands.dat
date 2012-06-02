@@ -1,5 +1,7 @@
-menu.!.name=game
-menu.*.childs.!.name=new
-menu.*.childs.*.command=new
+menu.+.name=game
+menu.*.childs.!.name=reset
+menu.*.childs.*.command=reset
 menu.*.childs.+.name=pause
 menu.*.childs.*.command=pause
+menu.*.childs.+.name=resume
+menu.*.childs.*.command=resume
