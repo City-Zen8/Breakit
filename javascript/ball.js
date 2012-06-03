@@ -51,6 +51,7 @@ var Ball=new Class({
 					{
 					this.speed=0;
 					this.inverseAngleY();
+					this.game.bar.lives--;
 					}
 				}
 			else

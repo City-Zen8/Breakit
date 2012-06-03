@@ -58,7 +58,7 @@ var Game=new Class({
 			this.goodies=new Array();
 			this.level=1;
 			this.populate();
-			this.notice(this.localize('level','Level %',this.level));
+			this.notice(this.localize('level','Level $',this.level));
 		},
 	pause : function() {
 		console.log('pause');
@@ -94,11 +94,28 @@ var Game=new Class({
 		this.aspectRatio=this.height/200;
 		},
 	main : function() {
-		if(!this.bricks.length)
+		this.context.clearRect(9, 9, 300, 10*this.aspectRatio);
+		this.context.fillStyle = '#000000';
+		this.context.font=(10*this.aspectRatio)+'px Arial';
+		this.context.textAlign='left';
+		this.context.textBaseline='top';
+		this.context.fillText(this.localize('lives','$ lives', this.bar.lives),10, 10,300);
+		if(!this.bar.lives)
+			{
+			clearTimeout(this.timer);
+			this.timer=0;
+			this.balls=new Array();
+			this.context.fillStyle = '#000000';
+			this.context.font=(30*this.aspectRatio)+'px Arial';
+			this.context.textAlign='center';
+			this.context.textBaseline='middle';
+			this.context.fillText(this.localize('gameover','Game Over'),this.width/2, this.height/2);
+			}
+		else if(!this.bricks.length)
 			{
 			this.play('badadum');
 			this.level++;
-			this.notice(this.localize('level','Level %',this.level));
+			this.notice(this.localize('level','Level $',this.level));
 			for(var i=this.balls.length-1; i>=0; i--)
 				{
 				this.balls[i].speed=0;
@@ -132,14 +149,13 @@ var Game=new Class({
 		},
 	populate : function() {
 		var bHeight=10*this.aspectRatio, bWidth=30*this.aspectRatio, bMargin=2,
-			gXMargin=20*this.aspectRatio, gYMargin=15*this.aspectRatio;
+			gXMargin=20*this.aspectRatio, gYMargin=20*this.aspectRatio;
 		bXDecal=Math.floor(((this.width-(gXMargin*2))%(bWidth+bMargin))/2),
 		bYDecal=Math.floor((((this.height/2)-(gYMargin*2))%(bHeight+bMargin))/2),
 		this.bricks=new Array();
 		for(var i=0, j=Math.floor((this.width-(gXMargin*2))/(bWidth+bMargin)); i<j; i++)
 			{
-			//this.bricks[i]=array(); Could improve hit test by checking lines hit first
-			for(var k=0, l=Math.floor(((this.height/2)-(gYMargin*2))/(bHeight+bMargin)); k<l; k++)
+			for(var k=0, l=Math.floor(((this.height/2)-(gYMargin))/(bHeight+bMargin)); k<l; k++)
 				{
 				this.bricks.push(new Brick(this,gXMargin+bXDecal+i*bWidth+bMargin*(i-1),
 					gYMargin+bYDecal+k*bHeight+bMargin*(k-1),bWidth,bHeight));
