@@ -253,12 +253,11 @@ var Game=new Class({
 		window.removeEvents('keydown');
 		},
 	notice : function(message) {
-			//alert(message);
+			alert(message);
 		},
 	localize : function() {
-		return arguments[1];
+		return arguments[1].replace('$',arguments[2]);
 		},
 	destruct : function() {
-		alert('x');
 		}
 });
