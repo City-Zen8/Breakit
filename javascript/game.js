@@ -30,7 +30,6 @@ var Game=new Class({
 			element.appendChild(this.canvas);
 			this.context = this.canvas.getContext('2d');
 			this.reset();
-			this.timer=this.main.delay(30, this);
 			this.canvas.addEvent('mousemove',this.moveHandler.bind(this));
 			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
 			this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
