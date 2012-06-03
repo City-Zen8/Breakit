@@ -33,7 +33,7 @@ var GunShot=new Class({
 					&&this.game.bricks[i].y<this.y&&this.game.bricks[i].y+this.game.bricks[i].height>this.y)
 					{
 					this.game.context.clearRect(this.x-(this.width/2)-1, this.y, this.width+2, this.height);
-					this.game.bricks[i].remove();
+					this.game.bricks[i].remove(this.game.balls[0]);
 					this.clear();
 					return;
 					}

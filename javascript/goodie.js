@@ -11,14 +11,15 @@
  */
 
 var Goodie=new Class({
-	initialize: function(game,x,y){
+	initialize: function(game,ball,x,y){
 		this.game = game;
+		this.ball = ball;
 		this.width = (15*this.game.aspectRatio)+5;
 		this.height = 10*this.game.aspectRatio;
 		this.y = y;
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
-		this.type = Math.floor(Math.random()*15);
+		this.type = Math.floor(Math.random()*16);
 		},
 	draw : function() {
 		switch(this.speed)
@@ -44,56 +45,59 @@ var Goodie=new Class({
 		this.game.context.lineTo(this.x+this.width-5,this.y);
 		this.game.context.lineTo(this.x+this.width-5,this.y+this.height);
 		this.game.context.fill();
-		this.game.context.fillStyle = '#000000';
 		this.game.context.fillStyle = '#ffffff';
-		this.game.context.font=(this.height-2)+'px Arial';
+		this.game.context.textBaseline='top';
+		this.game.context.font=(this.height-2)+'px Helvetica bold, sans-serif';
 		this.game.context.textAlign='center';
 		switch(this.type)
 			{
 			case 0:
-				this.game.context.fillText('XS', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('XS', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 1:
-				this.game.context.fillText('S', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('S', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 2:
-				this.game.context.fillText('M', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('M', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 3:
-				this.game.context.fillText('L', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('L', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 4:
-				this.game.context.fillText('XL', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('XL', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 5:
-				this.game.context.fillText('Glue', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Glue', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 6:
-				this.game.context.fillText('Gun', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Gun', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 7:
-				this.game.context.fillText('Lazer', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Lazer', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 8:
-				this.game.context.fillText('Doo', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Doo', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 9:
-				this.game.context.fillText('Ball', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Ball', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 10:
-				this.game.context.fillText('Brake', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Brake', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 11:
-				this.game.context.fillText('Speed', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Speed', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 12:
-				this.game.context.fillText('Small', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Small', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 13:
-				this.game.context.fillText('Medium', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Medium', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 14:
-				this.game.context.fillText('Big', this.x+(this.width/2), this.y+this.height, this.width);
+				this.game.context.fillText('Big', this.x+(this.width/2), this.y, this.width);
+				break;
+			case 15:
+				this.game.context.fillText('Wonder', this.x+(this.width/2), this.y, this.width);
 				break;
 			case 15:
 				this.game.context.fillText('Power', this.x+(this.width/2), this.y+this.height, this.width);
@@ -158,16 +162,19 @@ var Goodie=new Class({
 					this.game.bar.speedLimit++;
 					break;
 				case 12:
-					this.game.balls[0].size=1.5;
-					this.game.balls[0].fit();
+					this.ball.size=1.5;
+					this.ball.fit();
 					break;
 				case 13:
-					this.game.balls[0].size=2.5;
-					this.game.balls[0].fit();
+					this.ball.size=2.5;
+					this.ball.fit();
 					break;
 				case 14:
-					this.game.balls[0].size=3.5;
-					this.game.balls[0].fit();
+					this.ball.size=3.5;
+					this.ball.fit();
+					break;
+				case 15:
+					this.ball.wonderMode+=10;
 					break;
 				case 15:
 					this.game.balls[0].throughtWall+=10;

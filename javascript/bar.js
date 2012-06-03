@@ -19,6 +19,7 @@ var Bar=new Class({
 		this.fireMode='';
 		this.maxShots=1;
 		this.speed=1;
+		this.lives=3;
 		this.speedLimit=5;
 		this.direction=0;
 		this.glueMode=false;

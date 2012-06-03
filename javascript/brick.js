@@ -47,7 +47,7 @@ var Brick=new Class({
 			}
 		this.game.context.fillRect(this.x, this.y, this.width, this.height);
 		},
-	remove : function() {
+	remove : function(ball) {
 		this.game.play('boing');
 		this.solidity--;
 		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
@@ -57,7 +57,7 @@ var Brick=new Class({
 			{
 			this.game.bricks.splice(this.game.bricks.indexOf(this),1);
 			if(this.game.goodies.length<5&&Math.floor((Math.random()*5+this.game.level)+1)>4)
-				this.game.goodies.push(new Goodie(this.game,this.x,this.y));
+				this.game.goodies.push(new Goodie(this.game,ball,this.x,this.y));
 			}
 		},
 	hit : function(x,y,r) {
