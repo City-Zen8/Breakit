@@ -18,6 +18,7 @@ var Ball=new Class({
 		this.x =(this.game.width/2)-(this.r/2);
 		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
 		this.speed = 0;
+		this.wonderMode = 0;
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
 		},
 	fit : function() {
@@ -64,14 +65,19 @@ var Ball=new Class({
 						hit=hit|newHit;
 						}
 					}
-				if(hit&1||hit&2)
+				if(this.wonderMode<1)
 					{
-					this.inverseAngleX();
+					if(hit&1||hit&2)
+						{
+						this.inverseAngleX();
+						}
+					if(hit&4||hit&8)
+						{
+						this.inverseAngleY();
+						}
 					}
-				if(hit&4||hit&8)
-					{
-					this.inverseAngleY();
-					}
+				else if(hit)
+					this.wonderMode--;
 				if(!hit)
 					{
 					if(nextX< 0)

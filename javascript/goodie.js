@@ -18,7 +18,7 @@ var Goodie=new Class({
 		this.y = y;
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
-		this.type = Math.floor(Math.random()*15);
+		this.type = Math.floor(Math.random()*16);
 		},
 	draw : function() {
 		switch(this.speed)
@@ -95,6 +95,9 @@ var Goodie=new Class({
 			case 14:
 				this.game.context.fillText('Big', this.x+(this.width/2), this.y+this.height, this.width);
 				break;
+			case 15:
+				this.game.context.fillText('Wonder', this.x+(this.width/2), this.y+this.height, this.width);
+				break;
 			}
 		},
 	remove : function(catched) {
@@ -165,6 +168,9 @@ var Goodie=new Class({
 				case 14:
 					this.game.balls[0].size=3.5;
 					this.game.balls[0].fit();
+					break;
+				case 15:
+					this.game.balls[0].wonderMode+=10;
 					break;
 				}
 			}
