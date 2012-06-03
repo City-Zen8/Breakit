@@ -18,15 +18,18 @@ var Ball=new Class({
 		this.fit();
 		this.x =(this.game.width/2)-(this.r/2);
 		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
-		this.speed = 0;
 		this.wonderMode = 0;
+		this.stop();
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
 		},
 	fit : function() {
 		this.r = this.size*this.game.aspectRatio;
 		},
 	draw : function() {
-		this.game.context.fillStyle = "#333";
+		if(this.wonderMode)
+			this.game.context.fillStyle = "#FF0000";
+		else
+			this.game.context.fillStyle = "#333";
 		this.game.context.beginPath();
 		this.game.context.arc(this.x,this.y,this.r-1,0,Math.PI*2,true);
 		this.game.context.fill();
@@ -36,6 +39,10 @@ var Ball=new Class({
 		},
 	start : function() {
 		this.speed=(0.6+(this.game.level/10))*this.game.aspectRatio;
+		},
+	stop : function() {
+		this.speed=0;
+		this.glueCounter = 400;
 		},
 	move : function() {
 		this.remove();
@@ -50,7 +57,7 @@ var Ball=new Class({
 					this.game.balls.splice(this.game.balls.indexOf(this),1);
 				else
 					{
-					this.speed=0;
+					this.stop();
 					this.inverseAngleY();
 					this.game.bar.lives--;
 					}
@@ -115,7 +122,9 @@ var Ball=new Class({
 							}
 						nextY=this.game.bar.y-this.r;
 						if(this.game.bar.glueMode)
-							this.speed=0;
+							{
+							this.stop();
+							}
 						}
 					this.y=nextY;
 					}
@@ -123,8 +132,11 @@ var Ball=new Class({
 			}
 		else
 			{
+			this.glueCounter--;
 			this.x=this.game.bar.x+this.game.bar.width/2;
 			this.y=this.game.bar.y-this.game.bar.height-(this.r/2);
+			if(this.glueCounter<1)
+				this.start();
 			}
 		},
 	inverseAngleX : function() {
