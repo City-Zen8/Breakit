@@ -13,8 +13,8 @@
 var Goodie=new Class({
 	initialize: function(game,x,y){
 		this.game = game;
-		this.width = (10*this.game.aspectRatio)+5;
-		this.height = 10;
+		this.width = (15*this.game.aspectRatio)+5;
+		this.height = 10*this.game.aspectRatio;
 		this.y = y;
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
@@ -46,7 +46,7 @@ var Goodie=new Class({
 		this.game.context.fill();
 		this.game.context.fillStyle = '#000000';
 		this.game.context.fillStyle = '#ffffff';
-		this.game.context.font='10px Arial';
+		this.game.context.font=(this.height-2)+'px Arial';
 		this.game.context.textAlign='center';
 		switch(this.type)
 			{
@@ -135,10 +135,8 @@ var Goodie=new Class({
 						this.game.bar.fireMode='Gun';
 					break;
 				case 7:
-					if(this.game.bar.fireMode=='Lazer')
-						this.game.bar.maxShots++;
-					else
 						this.game.bar.fireMode='Lazer';
+						this.game.bar.maxShots=1;
 					break;
 				case 8:
 					this.game.bar.fireMode='';

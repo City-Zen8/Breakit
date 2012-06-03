@@ -19,6 +19,7 @@ var Game=new Class({
 		this.rootPath=(rootPath?rootPath:'');
 		if(noticeFunction)
 			this.notice=noticeFunction;
+		this.muted=false;
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
@@ -66,6 +67,9 @@ var Game=new Class({
 		console.log('resume');
 		if(!this.timer)
 			this.timer=this.main.delay(30, this);
+		},
+	mute : function() {
+		this.muted=true;
 		},
 	resize : function() {
 		console.log('resize');
@@ -142,10 +146,13 @@ var Game=new Class({
 		},
 	/* Sound management */
 	play : function(sound) {
-		this.sounds[sound].pause();
-		this.sounds[sound].currentTime=0;
-		this.sounds[sound].play();
-		//this.sounds[sound].cloneNode().play();
+		if(!this.muted)
+			{
+			this.sounds[sound].pause();
+			this.sounds[sound].currentTime=0;
+			this.sounds[sound].play();
+			//this.sounds[sound].cloneNode().play(); Download the sound each time!!!
+			}
 		},
 	/* Events management */
 	moveHandler : function(e) {

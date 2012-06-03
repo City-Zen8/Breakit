@@ -18,16 +18,15 @@ var LazerShot=new Class({
 		this.x = x;
 		this.moveCount = 0;
 		this.game.play('lazer');
-		this.draw();
-		},
-	draw : function() {
-			this.game.context.fillStyle = "#ff0000";
-			this.game.context.fillRect(this.x-(this.width/2), 0, this.width, this.height);
 			for(var i=this.game.bricks.length-1; i>=0; i--)
 				{
 				if(this.game.bricks[i].x<this.x&&this.game.bricks[i].x+this.game.bricks[i].width>this.x)
 					this.game.bricks[i].remove();
 				}
+		this.draw();
+		},
+	draw : function() {
+			this.game.context.fillStyle = "#ff0000";
 			this.game.context.fillRect(this.x-(this.width/2), 0, this.width, this.height);
 		},
 	move : function() {

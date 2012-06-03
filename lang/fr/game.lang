@@ -8,5 +8,8 @@ menu_pause=Pause
 menu_pause_tooltip=Mettre en pause
 menu_resume=Reprendre
 menu_resume_tooltip=Reprendre la partie
+menu_options=Options
+menu_mute=Son
+menu_mute_tooltip=Couper/Activer le son
 # Notifications
 level=Niveau $

@@ -1,7 +1,10 @@
-menu.+.name=game
+menu.!.name=game
 menu.*.childs.!.name=reset
 menu.*.childs.*.command=reset
 menu.*.childs.+.name=pause
 menu.*.childs.*.command=pause
 menu.*.childs.+.name=resume
 menu.*.childs.*.command=resume
+menu.+.name=options
+menu.*.childs.+.name=mute
+menu.*.childs.*.command=mute
