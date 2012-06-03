@@ -19,7 +19,7 @@ var Goodie=new Class({
 		this.y = y;
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
-		this.type = Math.floor(Math.random()*16);
+		this.type = Math.floor(Math.random()*17);
 		},
 	draw : function() {
 		switch(this.speed)
@@ -99,8 +99,8 @@ var Goodie=new Class({
 			case 15:
 				this.game.context.fillText('Wonder', this.x+(this.width/2), this.y, this.width);
 				break;
-			case 15:
-				this.game.context.fillText('Power', this.x+(this.width/2), this.y+this.height, this.width);
+			case 16:
+				this.game.context.fillText('1UP', this.x+(this.width/2), this.y, this.width);
 				break;
 			}
 		},
@@ -178,6 +178,9 @@ var Goodie=new Class({
 					break;
 				case 15:
 					this.game.balls[0].throughtWall+=10;
+					break;
+				case 16:
+					this.game.bar.lives+=1;
 					break;
 				}
 			}
