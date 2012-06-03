@@ -57,6 +57,7 @@ var Game=new Class({
 			this.balls=new Array(new Ball(this));
 			this.goodies=new Array();
 			this.level=1;
+			this.score=0;
 			this.populate();
 			this.notice(this.localize('level','Level $',this.level));
 			if(!this.timer)
@@ -96,12 +97,14 @@ var Game=new Class({
 		this.aspectRatio=this.height/200;
 		},
 	main : function() {
-		this.context.clearRect(9, 9, 300, 10*this.aspectRatio);
+		this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
 		this.context.fillStyle = '#000000';
 		this.context.font=(10*this.aspectRatio)+'px Arial';
-		this.context.textAlign='left';
 		this.context.textBaseline='top';
+		this.context.textAlign='left';
 		this.context.fillText(this.localize('lives','$ lives', this.bar.lives),10, 10,300);
+		this.context.textAlign='right';
+		this.context.fillText(this.localize('score','Score: $', this.score),this.width-10, 10,300);
 		if(!this.bar.lives)
 			{
 			clearTimeout(this.timer);

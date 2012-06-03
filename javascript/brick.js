@@ -51,10 +51,9 @@ var Brick=new Class({
 		this.game.play('boing');
 		this.solidity--;
 		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
-		if(this.solidity)
-			this.draw()
-		else
+		if(!this.solidity)
 			{
+			this.game.score+=1;
 			this.game.bricks.splice(this.game.bricks.indexOf(this),1);
 			if(this.game.goodies.length<5&&Math.floor((Math.random()*5+this.game.level)+1)>4)
 				this.game.goodies.push(new Goodie(this.game,ball,this.x,this.y));

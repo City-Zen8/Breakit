@@ -13,5 +13,7 @@ menu_mute=Son
 menu_mute_tooltip=Couper/Activer le son
 # Notifications
 level=Niveau $
+# Game strings
 lives=$ vie(s)
+score=Score : $
 gameover=Perdu !
