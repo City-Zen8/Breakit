@@ -11,12 +11,14 @@
  */
 
 var Game=new Class({
-	initialize: function(element, rootPath,noticeFunction)
+	initialize: function(element, rootPath,localizeFunction,noticeFunction)
 		{
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.element=element;
 		this.rootPath=(rootPath?rootPath:'');
+		if(localizeFunction)
+			this.localize=localizeFunction;
 		if(noticeFunction)
 			this.notice=noticeFunction;
 		this.muted=false;
@@ -56,7 +58,7 @@ var Game=new Class({
 			this.goodies=new Array();
 			this.level=1;
 			this.populate();
-			this.notice('level',this.level);
+			this.notice(this.localize('level','Level %',this.level));
 		},
 	pause : function() {
 		console.log('pause');
@@ -96,7 +98,7 @@ var Game=new Class({
 			{
 			this.play('badadum');
 			this.level++;
-			this.notice('level',this.level);
+			this.notice(this.localize('level','Level %',this.level));
 			for(var i=this.balls.length-1; i>=0; i--)
 				{
 				this.balls[i].speed=0;
@@ -230,7 +232,11 @@ var Game=new Class({
 		this.canvas.removeEvents('click');
 		window.removeEvents('keydown');
 		},
-	notice : function() {
+	notice : function(message) {
+			//alert(message);
+		},
+	localize : function() {
+		return arguments[1];
 		},
 	destruct : function() {
 		alert('x');
