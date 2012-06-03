@@ -14,6 +14,7 @@ var Ball=new Class({
 	initialize: function(game) {
 		this.game = game;
 		this.size = 2.5;
+		this.throughtWall = 0;
 		this.fit();
 		this.x =(this.game.width/2)-(this.r/2);
 		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
@@ -64,14 +65,19 @@ var Ball=new Class({
 						hit=hit|newHit;
 						}
 					}
-				if(hit&1||hit&2)
+				if(this.throughtWall<1)
 					{
-					this.inverseAngleX();
+					if(hit&1||hit&2)
+						{
+						this.inverseAngleX();
+						}
+					if(hit&4||hit&8)
+						{
+						this.inverseAngleY();
+						}
 					}
-				if(hit&4||hit&8)
-					{
-					this.inverseAngleY();
-					}
+				else if(hit)
+					this.throughtWall--;
 				if(!hit)
 					{
 					if(nextX< 0)
