@@ -11,8 +11,9 @@
  */
 
 var Goodie=new Class({
-	initialize: function(game,x,y){
+	initialize: function(game,ball,x,y){
 		this.game = game;
+		this.ball = ball;
 		this.width = (15*this.game.aspectRatio)+5;
 		this.height = 10*this.game.aspectRatio;
 		this.y = y;
@@ -158,19 +159,19 @@ var Goodie=new Class({
 					this.game.bar.speedLimit++;
 					break;
 				case 12:
-					this.game.balls[0].size=1.5;
-					this.game.balls[0].fit();
+					this.ball.size=1.5;
+					this.ball.fit();
 					break;
 				case 13:
-					this.game.balls[0].size=2.5;
-					this.game.balls[0].fit();
+					this.ball.size=2.5;
+					this.ball.fit();
 					break;
 				case 14:
-					this.game.balls[0].size=3.5;
-					this.game.balls[0].fit();
+					this.ball.size=3.5;
+					this.ball.fit();
 					break;
 				case 15:
-					this.game.balls[0].wonderMode+=10;
+					this.ball.wonderMode+=10;
 					break;
 				}
 			}

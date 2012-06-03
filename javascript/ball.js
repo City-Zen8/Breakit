@@ -59,7 +59,7 @@ var Ball=new Class({
 				for(var i=this.game.bricks.length-1; i>=0; i--)
 					{
 					newHit=this.game.bricks[i].hit(nextX,nextY,this.r);
-					if(newHit&&!this.game.bricks[i].remove())
+					if(newHit&&!this.game.bricks[i].remove(this))
 						{
 						i--;
 						hit=hit|newHit;
