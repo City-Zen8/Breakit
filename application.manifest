@@ -1,5 +1,6 @@
 CACHE MANIFEST
 index.html
+javascript/mootools-yui-compressed.js
 javascript/ball.js
 javascript/bar.js
 javascript/brick.js
