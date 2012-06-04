@@ -2,7 +2,7 @@
   "version": "1.0",
   "name": "BreakIt",
   "description": "Break bricks with class !",
-  "launch_path": "index.html",
+  "launch_path": "/github/nfroidure/CasseBriques/master/index.html",
   "developer": {
     "name": "Nicolas Froidure",
     "url": "http://www.insertafter.com"
