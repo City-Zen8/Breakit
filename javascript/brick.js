@@ -48,7 +48,7 @@ var Brick=new Class({
 		this.game.context.fillRect(this.x, this.y, this.width, this.height);
 		},
 	remove : function(ball) {
-		this.game.play('boing');
+		this.game.playSound('boing');
 		this.solidity--;
 		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
 		if(!this.solidity)

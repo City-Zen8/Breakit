@@ -21,7 +21,6 @@ var Game=new Class({
 			this.localize=localizeFunction;
 		if(noticeFunction)
 			this.notice=noticeFunction;
-		this.muted=false;
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
@@ -31,20 +30,12 @@ var Game=new Class({
 			this.context = this.canvas.getContext('2d');
 			this.reset();
 			this.initEvents();
+			this.initSounds();
 			}
 		else
 			{
 			element.appendChild(document.createTextNode('Go buy a real browser !'));
 			}
-		this.sounds=new Array();
-		this.sounds['lazer'] = new Audio(this.rootPath+'sounds/77087__supraliminal__laser-short.ogg');
-		this.sounds['boing'] = new Audio(this.rootPath+'sounds/88451__davidou__boing.ogg');
-		this.sounds['boing2'] = new Audio(this.rootPath+'sounds/48939__itsallhappening__boing.ogg');
-		this.sounds['gunshot'] = new Audio(this.rootPath+'sounds/20352__cognito-perceptu__gunshot.ogg');
-		this.sounds['crash'] = new Audio(this.rootPath+'sounds/33675__pauliep83__crash.ogg');
-		this.sounds['badadum'] = new Audio(this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
-		this.sounds['fart'] = new Audio(this.rootPath+'sounds/46985__ifartinurgeneraldirection__toot.ogg');
-		this.sounds['bleep'] = new Audio(this.rootPath+'sounds/3062__speedy__bleep.ogg');
 		},
 	reset : function() {
 			this.context.clearRect(0,0,this.width,this.height);
@@ -64,9 +55,6 @@ var Game=new Class({
 	resume : function() {
 		if(!this.timer)
 			this.timer=this.main.delay(30, this);
-		},
-	mute : function() {
-		this.muted=true;
 		},
 	resize : function() {
 		console.log('resize');
@@ -110,7 +98,7 @@ var Game=new Class({
 			}
 		else if(!this.bricks.length)
 			{
-			this.play('badadum');
+			this.playSound('badadum');
 			this.level++;
 			this.notice(this.localize('level','Level $',this.level));
 			for(var i=this.balls.length-1; i>=0; i--)
@@ -160,14 +148,38 @@ var Game=new Class({
 			}
 		},
 	/* Sound management */
-	play : function(sound) {
+	initSounds : function() {
+		this.muted=false;
+		this.sounds=new Array();
+		this.registerSound('lazer',this.rootPath+'sounds/77087__supraliminal__laser-short.ogg');
+		this.registerSound('boing',this.rootPath+'sounds/88451__davidou__boing.ogg');
+		this.registerSound('boing2',this.rootPath+'sounds/48939__itsallhappening__boing.ogg');
+		this.registerSound('gunshot',this.rootPath+'sounds/20352__cognito-perceptu__gunshot.ogg');
+		this.registerSound('crash',this.rootPath+'sounds/33675__pauliep83__crash.ogg');
+		this.registerSound('badadum',this.rootPath+'sounds/37215__simon-lacelle__ba-da-dum.ogg');
+		this.registerSound('fart',this.rootPath+'sounds/46985__ifartinurgeneraldirection__toot.ogg');
+		this.registerSound('bleep',this.rootPath+'sounds/3062__speedy__bleep.ogg');
+		},
+	registerSound : function(sound, uri, loop) {
+		this.sounds[sound] = new Audio(uri);
+		this.sounds[sound].setAttribute('preload','preload');
+		if(loop)
+			this.sounds[sound].setAttribute('loop','loop');
+		},
+	playSound : function(sound) {
 		if(!this.muted)
 			{
 			this.sounds[sound].pause();
 			this.sounds[sound].currentTime=0;
 			this.sounds[sound].play();
-			//this.sounds[sound].cloneNode().play(); Download the sound each time!!!
+			//this.sounds[sound].cloneNode().play(); Download the sound each time!!! But could be a way to get multi-channel sound.
 			}
+		},
+	stopSound : function(sound) {
+		this.sounds[sound].pause();
+		},
+	mute : function() {
+		this.muted=true;
 		},
 	/* Events management */
 	initEvents : function() {

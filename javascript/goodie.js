@@ -106,7 +106,7 @@ var Goodie=new Class({
 		},
 	remove : function(catched) {
 		this.game.goodies.splice(this.game.goodies.indexOf(this),1);
-		this.game.play('boing');
+		this.game.playSound('boing');
 		this.clear();
 		if(catched)
 			{
@@ -114,23 +114,23 @@ var Goodie=new Class({
 				{
 				case 0:
 					this.game.bar.setMode('xs');
-					this.game.play('bleep');
+					this.game.playSound('bleep');
 					break;
 				case 1:
 					this.game.bar.setMode('s');
-					this.game.play('bleep');
+					this.game.playSound('bleep');
 					break;
 				case 2:
 					this.game.bar.setMode('m');
-					this.game.play('bleep');
+					this.game.playSound('bleep');
 					break;
 				case 3:
 					this.game.bar.setMode('l');
-					this.game.play('bleep');
+					this.game.playSound('bleep');
 					break;
 				case 4:
 					this.game.bar.setMode('xl');
-					this.game.play('bleep');
+					this.game.playSound('bleep');
 					break;
 				case 5:
 					this.game.bar.glueMode=true;
@@ -150,7 +150,7 @@ var Goodie=new Class({
 					this.game.bar.maxShots=1;
 					this.game.bar.glueMode=false;
 					this.game.bar.speedLimit=5;
-					this.game.play('fart');
+					this.game.playSound('fart');
 					break;
 				case 9:
 					this.game.balls.push(new Ball(this.game));
@@ -190,7 +190,7 @@ var Goodie=new Class({
 		var nextY=this.y + 0.5*this.speed;
 		if(nextY >this.game.height)
 			{
-			//this.game.play('crash');
+			//this.game.playSound('crash');
 			this.remove(false);
 			}
 		else if(this.x+(this.width/2)>this.game.bar.x

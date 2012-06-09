@@ -17,7 +17,7 @@ var GunShot=new Class({
 		this.height = 2*this.game.aspectRatio;
 		this.x = x;
 		this.y = y;
-		this.game.play('gunshot');
+		this.game.playSound('gunshot');
 		this.draw();
 		},
 	draw : function() {

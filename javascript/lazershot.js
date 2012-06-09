@@ -17,7 +17,7 @@ var LazerShot=new Class({
 		this.height = y;
 		this.x = x;
 		this.moveCount = 0;
-		this.game.play('lazer');
+		this.game.playSound('lazer');
 			for(var i=this.game.bricks.length-1; i>=0; i--)
 				{
 				if(this.game.bricks[i].x<this.x&&this.game.bricks[i].x+this.game.bricks[i].width>this.x)
