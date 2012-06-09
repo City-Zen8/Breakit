@@ -30,11 +30,7 @@ var Game=new Class({
 			element.appendChild(this.canvas);
 			this.context = this.canvas.getContext('2d');
 			this.reset();
-			this.canvas.addEvent('mousemove',this.moveHandler.bind(this));
-			this.canvas.addEvent('click',this.clickHandler.bind(this),true);
-			this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
-			window.addEvent('keydown',this.keyDownHandler.bind(this),true);
-			window.addEvent('keyup',this.keyUpHandler.bind(this),true);
+			this.initEvents();
 			}
 		else
 			{
@@ -59,16 +55,13 @@ var Game=new Class({
 			this.score=0;
 			this.populate();
 			this.notice(this.localize('level','Level $',this.level));
-			if(!this.timer)
-				this.timer=this.main.delay(30, this);
+			this.resume();
 		},
 	pause : function() {
-		console.log('pause');
 		clearTimeout(this.timer);
 		this.timer=0;
 		},
 	resume : function() {
-		console.log('resume');
 		if(!this.timer)
 			this.timer=this.main.delay(30, this);
 		},
@@ -177,6 +170,20 @@ var Game=new Class({
 			}
 		},
 	/* Events management */
+	initEvents : function() {
+		this.canvas.addEvent('mousemove',this.moveHandler.bind(this));
+		this.canvas.addEvent('click',this.clickHandler.bind(this),true);
+		this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
+		window.addEvent('keydown',this.keyDownHandler.bind(this),true);
+		window.addEvent('keyup',this.keyUpHandler.bind(this),true);
+		},
+	removeEvents : function() {
+		this.canvas.removeEvents('mousemove');
+		this.canvas.removeEvents('click');
+		this.canvas.removeEvents('contextmenu');
+		window.removeEvents('keydown');
+		window.removeEvents('keyup');
+		},
 	moveHandler : function(e) {
 		var x=e.page.x-this.canvas.getPosition().x-(this.bar.width/2);
 		this.bar.moveTo(x);
@@ -244,19 +251,17 @@ var Game=new Class({
 		if(used)
 			e.stop();
 		},
-	/* End */
-	close : function() {
-		if(this.timer)
-			clearTimeout(this.timer);
-		this.canvas.removeEvents('mousemove');
-		this.canvas.removeEvents('click');
-		window.removeEvents('keydown');
-		},
+	/* UI */
 	notice : function(message) {
 			alert(message);
 		},
 	localize : function() {
 		return arguments[1].replace('$',arguments[2]);
+		},
+	/* End */
+	close : function() {
+		this.pause();
+		this.removeEvents();
 		},
 	destruct : function() {
 		}
