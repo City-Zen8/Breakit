@@ -3,9 +3,9 @@
   "name": "BreakIt",
   "description": "Break bricks with class !",
   "icons": {
-    "16": "images/icon-16.png",
-    "48": "images/icon-48.png",
-    "128": "images/icon-128.png"
+    "16": "/github/nfroidure/CasseBriques/master/images/icon-16.png",
+    "48": "/github/nfroidure/CasseBriques/master/images/icon-48.png",
+    "128": "/github/nfroidure/CasseBriques/master/images/icon-128.png"
   },
   "launch_path": "/github/nfroidure/CasseBriques/master/index.html",
   "developer": {
