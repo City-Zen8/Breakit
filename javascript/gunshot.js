@@ -18,7 +18,6 @@ var GunShot=new Class({
 		this.x = x;
 		this.y = y;
 		this.game.playSound('gunshot');
-		this.draw();
 		},
 	draw : function() {
 			this.game.context.fillStyle = "#ff0000";

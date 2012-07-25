@@ -21,6 +21,13 @@ var Game=new Class({
 			this.localize=localizeFunction;
 		if(noticeFunction)
 			this.notice=noticeFunction;
+		// Trying to request animation frame
+		this.requestAnimFrame = (function(){
+				return  window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||null})();
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
@@ -38,10 +45,13 @@ var Game=new Class({
 			}
 		},
 	reset : function() {
+			this._gameOver=false;
+			console.log('reset');
 			this.context.clearRect(0,0,this.width,this.height);
 			this.bar= new Bar(this);
 			this.balls=new Array(new Ball(this));
 			this.goodies=new Array();
+			this.shots=new Array();
 			this.level=1;
 			this.score=0;
 			this.populate();
@@ -51,13 +61,16 @@ var Game=new Class({
 	pause : function() {
 		clearTimeout(this.timer);
 		this.timer=0;
+		if(this.requestAnimFrame)
+			this.requestAnimFrame.call(window,function(){});
 		},
 	resume : function() {
 		if(!this.timer)
 			this.timer=this.main.delay(30, this);
+		if(this.requestAnimFrame)
+			this.requestAnimFrame.call(window,this.draw.bind(this));
 		},
 	resize : function() {
-		console.log('resize');
 		this.fit();
 		for(var i=this.balls.length-1; i>=0; i--)
 			{
@@ -77,26 +90,19 @@ var Game=new Class({
 		this.aspectRatio=this.height/200;
 		},
 	main : function() {
-		this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
-		this.context.fillStyle = '#000000';
-		this.context.font=(10*this.aspectRatio)+'px Arial';
-		this.context.textBaseline='top';
-		this.context.textAlign='left';
-		this.context.fillText(this.localize('lives','$ lives', this.bar.lives),10, 10,300);
-		this.context.textAlign='right';
-		this.context.fillText(this.localize('score','Score: $', this.score),this.width-10, 10,300);
 		if(!this.bar.lives)
 			{
-			clearTimeout(this.timer);
-			this.timer=0;
-			this.balls=new Array();
-			this.context.fillStyle = '#000000';
-			this.context.font=(30*this.aspectRatio)+'px Arial';
-			this.context.textAlign='center';
-			this.context.textBaseline='middle';
-			this.context.fillText(this.localize('gameover','Game Over'),this.width/2, this.height/2);
+			if(!this._gameOver)
+				{
+				this.balls=new Array();
+				this.notice(this.localize('gameover','Game Over'));
+				this._gameOver=true;
+				this._gameOverCountdown=1000;
+				}
+			else if(this._gameOverCountdown<=0)
+				this.reset();
 			}
-		else if(!this.bricks.length)
+		if(!this.bricks.length)
 			{
 			this.playSound('badadum');
 			this.level++;
@@ -120,16 +126,58 @@ var Game=new Class({
 				this.balls[i].move();
 			for(var i=this.goodies.length-1; i>=0; i--)
 				this.goodies[i].move();
-			for(var i=this.bricks.length-1; i>=0; i--)
-				this.bricks[i].draw();
-			for(var i=this.goodies.length-1; i>=0; i--)
-				this.goodies[i].draw();
-			for(var i=this.balls.length-1; i>=0; i--)
-				this.balls[i].draw();
-			this.bar.draw();
-			for(var i=this.bar.shots.length-1; i>=0; i--)
-				this.bar.shots[i].draw();
+			if(this._notice)
+				this._noticeDelay--;
+			if(this._gameOver)
+				this._gameOverCountdown--;
+			if(!this.requestAnimFrame)
+				this.draw();
 			this.timer=this.main.delay(5, this);
+			}
+		},
+	draw: function() {
+		// Drawing scores/lives
+		this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
+		this.context.fillStyle = '#000000';
+		this.context.font=(10*this.aspectRatio)+'px Arial';
+		this.context.textBaseline='top';
+		this.context.textAlign='left';
+		this.context.fillText(this.localize('lives','$ lives', this.bar.lives),10, 10,300);
+		this.context.textAlign='right';
+		this.context.fillText(this.localize('score','Score: $', this.score),this.width-10, 10,300);
+		// Drawing objects
+		for(var i=this.bricks.length-1; i>=0; i--)
+			this.bricks[i].draw();
+		for(var i=this.goodies.length-1; i>=0; i--)
+			this.goodies[i].draw();
+		for(var i=this.balls.length-1; i>=0; i--)
+			this.balls[i].draw();
+		this.bar.draw();
+		for(var i=this.bar.shots.length-1; i>=0; i--)
+			this.bar.shots[i].draw();
+		if(this.requestAnimFrame)
+			this.requestAnimFrame.call(window,this.draw.bind(this));
+		// Drawing notices
+		if(this._notice)
+			{
+			if(this._noticeDelay>0)
+				{
+				this.context.fillStyle = '#000000';
+				}
+			else
+				{
+				this.context.strokeStyle='#FFFFFF';
+				this.context.fillStyle = '#FFFFFF';
+				}
+			this.context.font=(30*this.aspectRatio)+'px Arial';
+			this.context.textAlign='center';
+			this.context.textBaseline='middle';
+			this.context.fillText(this._notice,this.width/2, this.height/2);
+			if(this._noticeDelay<=0)
+				{
+				this._notice='';
+				this.context.clearRect(0,0,this.width,this.height);
+				}
 			}
 		},
 	populate : function() {
@@ -265,7 +313,8 @@ var Game=new Class({
 		},
 	/* UI */
 	notice : function(message) {
-			alert(message);
+		this._notice=message;
+		this._noticeDelay=1000;
 		},
 	localize : function() {
 		return arguments[1].replace('$',arguments[2]);

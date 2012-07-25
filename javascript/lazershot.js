@@ -23,7 +23,6 @@ var LazerShot=new Class({
 				if(this.game.bricks[i].x<this.x&&this.game.bricks[i].x+this.game.bricks[i].width>this.x)
 					this.game.bricks[i].remove(this.game.balls[0]);
 				}
-		this.draw();
 		},
 	draw : function() {
 			this.game.context.fillStyle = "#ff0000";
