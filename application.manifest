@@ -1,4 +1,5 @@
 CACHE MANIFEST
+# v 1.0
 index.html
 javascript/mootools-yui-compressed.js
 javascript/ball.js
@@ -16,3 +17,5 @@ sounds/46985__ifartinurgeneraldirection__toot.ogg
 sounds/48939__itsallhappening__boing.ogg
 sounds/77087__supraliminal__laser-short.ogg
 sounds/88451__davidou__boing.ogg
+lang/fr/game.lang
+datas/commands.dat
