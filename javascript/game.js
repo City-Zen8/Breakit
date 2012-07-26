@@ -138,8 +138,10 @@ var Game=new Class({
 	draw: function() {
 		if(this.timer)
 			{
+			// Clearing everything
+			this.context.clearRect(0, 0, this.width, this.height);
 			// Drawing scores/lives
-			this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
+			//this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
 			this.context.fillStyle = '#000000';
 			this.context.font=(10*this.aspectRatio)+'px Arial';
 			this.context.textBaseline='top';
@@ -176,7 +178,7 @@ var Game=new Class({
 				if(this._noticeDelay<=0)
 					{
 					this._notice='';
-					this.context.clearRect(0,0,this.width,this.height);
+					//this.context.clearRect(0,0,this.width,this.height);
 					}
 				}
 			}

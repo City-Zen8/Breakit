@@ -103,6 +103,13 @@ var Goodie=new Class({
 				this.game.context.fillText('1UP', this.x+(this.width/2), this.y, this.width);
 				break;
 			}
+		this.lastX=this.x;
+		this.lastY=this.y;
+		this.lastWidth=this.width;
+		this.lastHeight=this.height;
+		},
+	clear : function() {
+		this.game.context.clearRect(this.lastX-1, this.lastY-1, this.lastWidth+2, this.lastHeight+2);
 		},
 	remove : function(catched) {
 		this.game.goodies.splice(this.game.goodies.indexOf(this),1);
@@ -186,7 +193,6 @@ var Goodie=new Class({
 			}
 		},
 	move : function(x,y,r) {
-		this.clear();
 		var nextY=this.y + 0.5*this.speed;
 		if(nextY >this.game.height)
 			{
@@ -204,9 +210,6 @@ var Goodie=new Class({
 			{
 			this.y=nextY;
 			}
-		},
-	clear : function() {
-		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
 		},
 	hit : function(x,y,r) {
 		var hit=0;

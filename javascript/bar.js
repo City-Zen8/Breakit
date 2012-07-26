@@ -53,11 +53,16 @@ var Bar=new Class({
 		this.y = this.game.height-this.height-this.yMargin;
 		},
 	draw : function() {
+		this.game.context.clearRect(0, this.lastY, this.game.width, this.game.height);
 		this.game.context.fillStyle = "#333";
 		this.game.context.fillRect(this.x, this.y, this.width, this.height);
+		this.lastX=this.x;
+		this.lastY=this.y;
+		this.lastWidth=this.width;
+		this.lastHeight=this.height;
 		},
-	remove : function() {
-		this.game.context.clearRect(0, this.y, this.game.width, this.game.height);
+	clear : function() {
+		this.game.context.clearRect(0, this.lastY, this.game.width, this.game.height);
 		},
 	fire : function() {
 		if(this.fireMode&&this.shots.length<=this.maxShots)
@@ -76,7 +81,6 @@ var Bar=new Class({
 			}
 		},
 	move : function(e) {
-		this.remove();
 		if(this.direction!=0)
 			{
 			this.moveTo(this.x+(this.direction*this.speed*this.game.aspectRatio/5));

@@ -47,10 +47,12 @@ var Brick=new Class({
 			}
 		this.game.context.fillRect(this.x, this.y, this.width, this.height);
 		},
+	clear : function() {
+		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
+		},
 	remove : function(ball) {
 		this.game.playSound('boing');
 		this.solidity--;
-		this.game.context.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
 		if(!this.solidity)
 			{
 			this.game.score+=1;

@@ -16,16 +16,17 @@ var Ball=new Class({
 		this.size = 2.5;
 		this.throughtWall = 0;
 		this.fit();
-		this.x =(this.game.width/2)-(this.r/2);
-		this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
+		this.lastX=this.x =(this.game.width/2)-(this.r/2);
+		this.lasty=this.y = this.game.height-this.game.bar.height-(this.r*2)-10;
 		this.wonderMode = 0;
 		this.stop();
 		this.angle = (9+Math.floor((Math.random()*6)+1))*Math.PI/8;
 		},
 	fit : function() {
-		this.r = this.size*this.game.aspectRatio;
+		this.lastR=this.r = this.size*this.game.aspectRatio;
 		},
 	draw : function() {
+		// Drawing
 		if(this.wonderMode)
 			this.game.context.fillStyle = "#FF0000";
 		else
@@ -33,9 +34,12 @@ var Ball=new Class({
 		this.game.context.beginPath();
 		this.game.context.arc(this.x,this.y,this.r-1,0,Math.PI*2,true);
 		this.game.context.fill();
+		this.lastX=this.x;
+		this.lastY=this.y;
+		this.lastR=this.r;
 		},
-	remove : function() {
-		this.game.context.clearRect(this.x-this.r, this.y-this.r, this.r*2, this.r*2);
+	clear : function() {
+		this.game.context.clearRect(this.lastX-this.lastR, this.lastY-this.lastR, this.lastR*2, this.lastR*2);
 		},
 	start : function() {
 		this.speed=(0.6+(this.game.level/10))*this.game.aspectRatio;
@@ -45,7 +49,6 @@ var Ball=new Class({
 		this.glueCounter = 400;
 		},
 	move : function() {
-		this.remove();
 		if(this.speed)
 			{
 			var nextX=this.x + Math.cos(this.angle)*this.speed;

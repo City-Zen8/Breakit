@@ -18,23 +18,25 @@ var LazerShot=new Class({
 		this.x = x;
 		this.moveCount = 0;
 		this.game.playSound('lazer');
-			for(var i=this.game.bricks.length-1; i>=0; i--)
-				{
-				if(this.game.bricks[i].x<this.x&&this.game.bricks[i].x+this.game.bricks[i].width>this.x)
-					this.game.bricks[i].remove(this.game.balls[0]);
-				}
+		for(var i=this.game.bricks.length-1; i>=0; i--)
+			{
+			if(this.game.bricks[i].x<this.x&&this.game.bricks[i].x+this.game.bricks[i].width>this.x)
+				this.game.bricks[i].remove(this.game.balls[0]);
+			}
 		},
 	draw : function() {
-			this.game.context.fillStyle = "#ff0000";
-			this.game.context.fillRect(this.x-(this.width/2), 0, this.width, this.height);
+		this.game.context.fillStyle = "#ff0000";
+		this.game.context.fillRect(this.x-(this.width/2), 0, this.width, this.height);
+		},
+	clear : function() {
+		this.game.context.clearRect(this.x-(this.width/2)-1, 0, this.width+2, this.height);
 		},
 	move : function() {
 		this.moveCount++;
 		if(this.moveCount>7)
-			this.clear();
+			this.remove();
 		},
-	clear : function() {
-		this.game.context.clearRect(this.x-(this.width/2)-1, 0, this.width+2, this.height);
+	remove : function() {
 		this.game.bar.shots.splice(this.game.bar.shots.indexOf(this),1);
 		},
 	destruct : function() {
