@@ -43,10 +43,14 @@ var Game=new Class({
 			{
 			element.appendChild(document.createTextNode('Go buy a real browser !'));
 			}
+		// Setting defaults
+		this._gameOver=false;
+		// Requesting the first draw
+		if(this.requestAnimFrame)
+			this.requestAnimFrame.call(window,this.draw.bind(this));
 		},
 	reset : function() {
 			this._gameOver=false;
-			console.log('reset');
 			this.context.clearRect(0,0,this.width,this.height);
 			this.bar= new Bar(this);
 			this.balls=new Array(new Ball(this));
@@ -61,14 +65,10 @@ var Game=new Class({
 	pause : function() {
 		clearTimeout(this.timer);
 		this.timer=0;
-		if(this.requestAnimFrame)
-			this.requestAnimFrame.call(window,function(){});
 		},
 	resume : function() {
 		if(!this.timer)
 			this.timer=this.main.delay(30, this);
-		if(this.requestAnimFrame)
-			this.requestAnimFrame.call(window,this.draw.bind(this));
 		},
 	resize : function() {
 		this.fit();
@@ -136,49 +136,53 @@ var Game=new Class({
 			}
 		},
 	draw: function() {
-		// Drawing scores/lives
-		this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
-		this.context.fillStyle = '#000000';
-		this.context.font=(10*this.aspectRatio)+'px Arial';
-		this.context.textBaseline='top';
-		this.context.textAlign='left';
-		this.context.fillText(this.localize('lives','$ lives', this.bar.lives),10, 10,300);
-		this.context.textAlign='right';
-		this.context.fillText(this.localize('score','Score: $', this.score),this.width-10, 10,300);
-		// Drawing objects
-		for(var i=this.bricks.length-1; i>=0; i--)
-			this.bricks[i].draw();
-		for(var i=this.goodies.length-1; i>=0; i--)
-			this.goodies[i].draw();
-		for(var i=this.balls.length-1; i>=0; i--)
-			this.balls[i].draw();
-		this.bar.draw();
-		for(var i=this.bar.shots.length-1; i>=0; i--)
-			this.bar.shots[i].draw();
-		if(this.requestAnimFrame)
-			this.requestAnimFrame.call(window,this.draw.bind(this));
-		// Drawing notices
-		if(this._notice)
+		if(this.timer)
 			{
-			if(this._noticeDelay>0)
+			// Drawing scores/lives
+			this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
+			this.context.fillStyle = '#000000';
+			this.context.font=(10*this.aspectRatio)+'px Arial';
+			this.context.textBaseline='top';
+			this.context.textAlign='left';
+			this.context.fillText(this.localize('lives','$ lives', this.bar.lives),10, 10,300);
+			this.context.textAlign='right';
+			this.context.fillText(this.localize('score','Score: $', this.score),this.width-10, 10,300);
+			// Drawing objects
+			for(var i=this.bricks.length-1; i>=0; i--)
+				this.bricks[i].draw();
+			for(var i=this.goodies.length-1; i>=0; i--)
+				this.goodies[i].draw();
+			for(var i=this.balls.length-1; i>=0; i--)
+				this.balls[i].draw();
+			this.bar.draw();
+			for(var i=this.bar.shots.length-1; i>=0; i--)
+				this.bar.shots[i].draw();
+			// Drawing notices
+			if(this._notice)
 				{
-				this.context.fillStyle = '#000000';
-				}
-			else
-				{
-				this.context.strokeStyle='#FFFFFF';
-				this.context.fillStyle = '#FFFFFF';
-				}
-			this.context.font=(30*this.aspectRatio)+'px Arial';
-			this.context.textAlign='center';
-			this.context.textBaseline='middle';
-			this.context.fillText(this._notice,this.width/2, this.height/2);
-			if(this._noticeDelay<=0)
-				{
-				this._notice='';
-				this.context.clearRect(0,0,this.width,this.height);
+				if(this._noticeDelay>0)
+					{
+					this.context.fillStyle = '#000000';
+					}
+				else
+					{
+					this.context.strokeStyle='#FFFFFF';
+					this.context.fillStyle = '#FFFFFF';
+					}
+				this.context.font=(30*this.aspectRatio)+'px Arial';
+				this.context.textAlign='center';
+				this.context.textBaseline='middle';
+				this.context.fillText(this._notice,this.width/2, this.height/2);
+				if(this._noticeDelay<=0)
+					{
+					this._notice='';
+					this.context.clearRect(0,0,this.width,this.height);
+					}
 				}
 			}
+		// Let's go to another draw
+		if(this.requestAnimFrame)
+			this.requestAnimFrame.call(window,this.draw.bind(this));
 		},
 	populate : function() {
 		var bHeight=10*this.aspectRatio, bWidth=30*this.aspectRatio, bMargin=2,
