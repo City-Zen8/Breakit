@@ -46,6 +46,7 @@ var Goodie=new Class({
 		this.game.context.lineTo(this.x+this.width-5,this.y+this.height);
 		this.game.context.fill();
 		this.game.context.fillStyle = '#ffffff';
+		this.game.context.strokeStyle = '#e76500';
 		this.game.context.textBaseline='top';
 		this.game.context.font=(this.height-2)+'px Helvetica bold, sans-serif';
 		this.game.context.textAlign='center';

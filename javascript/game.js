@@ -113,7 +113,7 @@ var Game=new Class({
 				}
 			while(this.bar.shots[0])
 				{
-				this.bar.shots[0].clear();
+				this.bar.shots[0].remove();
 				}
 			this.populate();
 			}
