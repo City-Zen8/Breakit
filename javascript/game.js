@@ -242,6 +242,9 @@ var Game=new Class({
 		this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
 		window.addEvent('keydown',this.keyDownHandler.bind(this),true);
 		window.addEvent('keyup',this.keyUpHandler.bind(this),true);
+		window.addEventListener('MozOrientation', this.orientationHandler.bind(this), true);
+		window.addEventListener('deviceorientation', this.orientationHandler.bind(this), true);
+		this._prevBeta=0;
 		},
 	removeEvents : function() {
 		this.canvas.removeEvents('mousemove');
@@ -249,6 +252,19 @@ var Game=new Class({
 		this.canvas.removeEvents('contextmenu');
 		window.removeEvents('keydown');
 		window.removeEvents('keyup');
+		window.removeEvents('MozOrientation');
+		window.removeEvents('deviceorientation');
+		},
+	orientationHandler : function(e) {
+		var portrait=(window.matchMedia&&window.matchMedia('(orientation: portrait)').matches);
+		if((portrait&&e.beta<50)||((!portrait)&&(e.gamma<0&&e.gamma>-50)))
+			this.bar.fire();
+		if((portrait&&e.gamma<-15)||((!portrait)&&e.beta<-10))
+			this.bar.setDirection(-1);
+		else if((portrait&&e.gamma>15)||((!portrait)&&e.beta>10))
+			this.bar.setDirection(1);
+		else
+			this.bar.setDirection(0);
 		},
 	moveHandler : function(e) {
 		var x=e.page.x-this.canvas.getPosition().x-(this.bar.width/2);
