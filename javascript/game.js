@@ -221,7 +221,7 @@ var Game=new Class({
 			this.sounds[sound].setAttribute('loop','loop');
 		},
 	playSound : function(sound) {
-		if(!this.muted)
+		if(this.sounds[sound]&&!this.muted)
 			{
 			this.sounds[sound].pause();
 			this.sounds[sound].currentTime=0;

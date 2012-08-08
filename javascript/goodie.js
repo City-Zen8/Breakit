@@ -115,7 +115,6 @@ var Goodie=new Class({
 	remove : function(catched) {
 		this.game.goodies.splice(this.game.goodies.indexOf(this),1);
 		this.game.playSound('boing');
-		this.clear();
 		if(catched)
 			{
 			switch(this.type)
