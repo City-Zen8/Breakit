@@ -19,7 +19,7 @@ var Goodie=new Class({
 		this.y = y;
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
-		this.type = Math.floor(Math.random()*17);
+		this.type = Math.floor(Math.random()*18);
 		},
 	draw : function() {
 		switch(this.speed)
@@ -102,6 +102,9 @@ var Goodie=new Class({
 				break;
 			case 16:
 				this.game.context.fillText('1UP', this.x+(this.width/2), this.y, this.width);
+				break;
+			case 17:
+				this.game.context.fillText('Rev', this.x+(this.width/2), this.y, this.width);
 				break;
 			}
 		this.lastX=this.x;
@@ -188,6 +191,9 @@ var Goodie=new Class({
 					break;
 				case 16:
 					this.game.bar.lives+=1;
+					break;
+				case 17:
+					this.game.bar.reverse=!this.game.bar.reverse;
 					break;
 				}
 			}

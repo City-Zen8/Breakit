@@ -20,6 +20,7 @@ var Bar=new Class({
 		this.maxShots=1;
 		this.speed=1;
 		this.lives=3;
+		this.reverse=false;
 		this.speedLimit=5;
 		this.direction=0;
 		this.glueMode=false;
@@ -83,7 +84,7 @@ var Bar=new Class({
 	move : function(e) {
 		if(this.direction!=0)
 			{
-			this.moveTo(this.x+(this.direction*this.speed*this.game.aspectRatio/5));
+			this.moveTo(this.x+((this.reverse?-1:1)*this.direction*this.speed*this.game.aspectRatio/5));
 			if(this.speed<this.speedLimit)
 				this.speed++;
 			}
