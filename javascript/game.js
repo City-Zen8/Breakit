@@ -223,10 +223,10 @@ var Game=new Class({
 	playSound : function(sound) {
 		if(this.sounds[sound]&&!this.muted)
 			{
-			this.sounds[sound].pause();
-			this.sounds[sound].currentTime=0;
-			this.sounds[sound].play();
-			//this.sounds[sound].cloneNode().play(); Download the sound each time!!! But could be a way to get multi-channel sound.
+			//this.sounds[sound].pause();
+			//this.sounds[sound].currentTime=0;
+			//this.sounds[sound].play();
+			this.sounds[sound].cloneNode().play(); // HTTPS : Download the sound each time!!! But could be a way to get multi-channel sound.
 			}
 		},
 	stopSound : function(sound) {
@@ -242,9 +242,8 @@ var Game=new Class({
 		this.canvas.addEvent('contextmenu',this.clickHandler.bind(this),true);
 		window.addEvent('keydown',this.keyDownHandler.bind(this),true);
 		window.addEvent('keyup',this.keyUpHandler.bind(this),true);
-		window.addEventListener('MozOrientation', this.orientationHandler.bind(this), true);
 		window.addEventListener('deviceorientation', this.orientationHandler.bind(this), true);
-		this._prevBeta=0;
+		window.addEventListener('resize', this.resize.bind(this), true);
 		},
 	removeEvents : function() {
 		this.canvas.removeEvents('mousemove');
@@ -252,8 +251,8 @@ var Game=new Class({
 		this.canvas.removeEvents('contextmenu');
 		window.removeEvents('keydown');
 		window.removeEvents('keyup');
-		window.removeEvents('MozOrientation');
 		window.removeEvents('deviceorientation');
+		window.removeEvents('resize');
 		},
 	orientationHandler : function(e) {
 		var portrait=(window.matchMedia&&window.matchMedia('(orientation: portrait)').matches);
