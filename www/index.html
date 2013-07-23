@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html manifest="application.manifest" style="width:100%; height:100%; background:#dbdbdb; margin:0; padding:0;">
+<html manifest="application.manifest">
 	<head>
-		<title>BreakIt!</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>BreakIt!</title>
+		<meta name="description" content="Break the wall and increase your score throught levels." />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 		<!--[if lt IE 10]><script type="text/javascript">
 			alert('Ooops, you are using an old browser. Please come back with a recenter one.');
 			document.location.href="http://browsehappy.com/";
 		</script><![endif]-->
-		<script type="text/javascript" src="javascript/mootools-yui-compressed.js"></script>
-		<script type="text/javascript" src="javascript/game.js"></script>
-		<script type="text/javascript" src="javascript/bar.js"></script>
-		<script type="text/javascript" src="javascript/ball.js"></script>
-		<script type="text/javascript" src="javascript/brick.js"></script>
-		<script type="text/javascript" src="javascript/gunshot.js"></script>
-		<script type="text/javascript" src="javascript/lazershot.js"></script>
-		<script type="text/javascript" src="javascript/goodie.js"></script>
+		<!-- Requirejs : uncomment for development DEV--
+		<script data-main="javascript/Application"
+			src="javascript/libs/requirejs/require.js" type="text/javascript"></script>
+		<!-- -->
 		<link rel="icon" type="image/png" href="images/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-		<script type="text/javascript">
-		window.addEvent('domready', function() {
-			new Game(document.getElements('.CasseBrique')[0]);
-		});
-		</script>
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-37199172-2']);
@@ -34,7 +27,81 @@
 			})();
 		</script>
 	</head>
-	<body style="width:100%; height:100%; background:#dbdbdb; margin:0; padding:0;">
-	<div class="CasseBrique" style="width:100%; height:100%; background:#fff; margin:0 auto;"><p>Chargement...</p></div>
+	<body>
+		<div class="app">
+		<div class="message"><p>-</p></div>
+			<div class="view selected" id="loading">
+				<p>Loading...<br />Please wait !</p>
+			</div>
+			<div class="view" id="Home">
+				<h1>BreakIT</h1>
+				<ul class="menu">
+					<li><a href="app:changeView?view=Mono"
+						title="Play a new game">Play</a></li>
+					<li><a href="app:changeView?view=Options"
+						title="Set game options">Options</a></li>
+					<li><a href="app:changeView?view=Credits"
+						title="View credits">Credits</a></li>
+					<li><a href="app:changeView?view=About"
+						title="Learn more about this game">About</a></li>
+				</ul>
+			</div>
+			<div class="view" id="Game">
+				<p class="infos"><span>
+					<span class="lives">Lives: <span>0</span></span>
+					<span class="score">Score: <span>0</span></span>
+					<span class="time">Time left: <span>0'00</span></span>
+				</span></p>
+				<p class="canvas"></p>
+				<p class="menu">
+					<a href="app:Game/reset" title="Reset the game">Reset</a>
+					<a href="app:Game/pause" title="Pause the game">Pause</a>
+					<a href="app:Game/resume" title="Resume the game" disabled="disabled">Resume</a>
+					<a href="app:Game/exit" title="Exit the game">Exit</a>
+				</p>
+			</div>
+			<div class="view" id="Options">
+				<h1>Options</h1>
+				<form action="app:Options/send">
+					<p>
+						<label>Sounds&nbsp;:<br />
+							<select id="sounds">
+								<option value="0" />&nbsp;Off</option>
+								<option value="1" selected="selected" />&nbsp;On</option>
+							</select>
+						<br /><br />
+						<label><input type="checkbox" value="1" id="fullscreen" /> Full screen</label>
+						<br /><br />
+						<input type="submit" value="Cancel" formaction="app:changeView?view=Home" />
+						<input type="submit" value="Save" />
+					</p>
+				</form>
+			</div>
+			<div class="view" id="Credits">
+				<h1>Credits</h1>
+				<p class="text">
+					Thanks to people who made this game possible:
+				</p>
+				<ul class="text">
+					<li>Sound &nbsp;: <a href="" title="View the author website"></a></li>
+				</ul>
+				<p class="menu"><a href="app:changeView?view=Home" title="Back to home">Back</a></p>
+			</div>
+			<div class="view" id="About">
+				<h1>About this game</h1>
+				<p class="text">
+					This BreakIt game has been made by <a href="http://insertafter.com/blog.html">Nicolas Froidure</a>
+					to illustrate JavaScript/HTML5 application development. You can find
+						<a href="https://github.com/nfroidure/Breakit" title="View source">its source</a> on GitHub.
+				</p>
+				<p class="text">
+					You can reuse and/or modify it since it's licenced as a GNU/GPL software.
+				</p>
+				<p class="menu"><a href="app:changeView?view=Home" title="Back to home">Back</a></p>
+			</div>
+		</div>
+		<!-- Production : comment for development PROD-->
+		<script src="javascript/production.js" type="text/javascript"></script>
+		<!-- -->
 	</body>
 </html>
