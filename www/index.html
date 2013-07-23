@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html manifest="application.manifest" style="width:100%; height:100%; background:#dbdbdb; margin:0; padding:0;">
-    <head>
-        <title>BreakIt!</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <script type="text/javascript" src="javascript/mootools-yui-compressed.js"></script>
-        <script type="text/javascript" src="javascript/game.js"></script>
-        <script type="text/javascript" src="javascript/bar.js"></script>
-        <script type="text/javascript" src="javascript/ball.js"></script>
-        <script type="text/javascript" src="javascript/brick.js"></script>
-        <script type="text/javascript" src="javascript/gunshot.js"></script>
-        <script type="text/javascript" src="javascript/lazershot.js"></script>
-        <script type="text/javascript" src="javascript/goodie.js"></script>
-		<link rel="icon" type="image/png" href="images/icon-48.png" />
+	<head>
+		<title>BreakIt!</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<!--[if lt IE 10]><script type="text/javascript">
+			alert('Ooops, you are using an old browser. Please come back with a recenter one.');
+			document.location.href="http://browsehappy.com/";
+		</script><![endif]-->
+		<script type="text/javascript" src="javascript/mootools-yui-compressed.js"></script>
+		<script type="text/javascript" src="javascript/game.js"></script>
+		<script type="text/javascript" src="javascript/bar.js"></script>
+		<script type="text/javascript" src="javascript/ball.js"></script>
+		<script type="text/javascript" src="javascript/brick.js"></script>
+		<script type="text/javascript" src="javascript/gunshot.js"></script>
+		<script type="text/javascript" src="javascript/lazershot.js"></script>
+		<script type="text/javascript" src="javascript/goodie.js"></script>
+		<link rel="icon" type="image/png" href="images/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 		<script type="text/javascript">
-			window.addEvent('domready', function()
-				{
-				new Game(document.getElements('.CasseBrique')[0]);
-				});
-        </script>
-    </head>
-    <body style="width:100%; height:100%; background:#dbdbdb; margin:0; padding:0;">
-		<div class="CasseBrique" style="width:100%; height:100%; background:#fff; margin:0 auto;"><p>Chargement...</p></div>
-    </body>
+		window.addEvent('domready', function() {
+			new Game(document.getElements('.CasseBrique')[0]);
+		});
+		</script>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-37199172-2']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</head>
+	<body style="width:100%; height:100%; background:#dbdbdb; margin:0; padding:0;">
+	<div class="CasseBrique" style="width:100%; height:100%; background:#fff; margin:0 auto;"><p>Chargement...</p></div>
+	</body>
 </html>
