@@ -20,5 +20,6 @@ div#Game p.infos { display:table-row; height:50px; color:#fff; background:#333; 
 div#Game p.infos>span { display:table; width:100%; }
 div#Game p.infos>span>span { display:table-cell; width:33%; text-align:center; }
 div#Game p.canvas { display:table-row; }
+div#Game p.canvas canvas { display:table-cell; }
 div#Game p.menu { height:50px; }
 

@@ -1,17 +1,10 @@
-/*
- * Copyright (C) 2012 Jonathan Kowalski
- * Copyright (C) 2012 Nicolas Froidure
- *
- * This file is free software;
- * you can redistribute it and/or modify it under the terms of the GNU
- * General Public License (GPL) as published by the Free Software
- * Foundation, in version 2. It is distributed in the
- * hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
- *
- */
+// AMD + Global: r.js compatible
+// Use START + END markers to keep module content only
+(function(root,define){ define([], function() {
+// START: Module logic start
 
-var Goodie=new Class({
-	initialize: function(game,ball,x,y){
+	// Constructor
+	function Goodie (game,ball,x,y) {
 		this.game = game;
 		this.ball = ball;
 		this.width = (15*this.game.aspectRatio)+5;
@@ -20,10 +13,10 @@ var Goodie=new Class({
 		this.x = x;
 		this.speed = Math.floor((Math.random()*3)+1);
 		this.type = Math.floor(Math.random()*18);
-		},
-	draw : function() {
-		switch(this.speed)
-			{
+	}
+
+	Goodie.prototype.draw = function() {
+		switch(this.speed) {
 			case 1:
 				this.game.context.fillStyle = "#e76500"; // Normal
 				break;
@@ -33,7 +26,7 @@ var Goodie=new Class({
 			case 3:
 				this.game.context.fillStyle = "#612c00"; // Hard
 				break;
-			}
+		}
 		this.game.context.fillRect(this.x+5, this.y, this.width-10, this.height);
 		this.game.context.beginPath();
 		this.game.context.moveTo(this.x,this.y+this.height/2);
@@ -50,8 +43,7 @@ var Goodie=new Class({
 		this.game.context.textBaseline='top';
 		this.game.context.font=(this.height-2)+'px Helvetica bold, sans-serif';
 		this.game.context.textAlign='center';
-		switch(this.type)
-			{
+		switch(this.type) {
 			case 0:
 				this.game.context.fillText('XS', this.x+(this.width/2), this.y, this.width);
 				break;
@@ -106,41 +98,42 @@ var Goodie=new Class({
 			case 17:
 				this.game.context.fillText('Rev', this.x+(this.width/2), this.y, this.width);
 				break;
-			}
+		}
 		this.lastX=this.x;
 		this.lastY=this.y;
 		this.lastWidth=this.width;
 		this.lastHeight=this.height;
-		},
-	clear : function() {
-		this.game.context.clearRect(this.lastX-1, this.lastY-1, this.lastWidth+2, this.lastHeight+2);
-		},
-	remove : function(catched) {
+	};
+
+	Goodie.prototype.clear = function() {
+		this.game.context.clearRect(this.lastX-1, this.lastY-1,
+			this.lastWidth+2, this.lastHeight+2);
+	};
+
+	Goodie.prototype.remove = function(catched) {
 		this.game.goodies.splice(this.game.goodies.indexOf(this),1);
-		this.game.playSound('boing');
-		if(catched)
-			{
-			switch(this.type)
-				{
+		this.game.app.sounds.play('boing');
+		if(catched) {
+			switch(this.type) {
 				case 0:
 					this.game.bar.setMode('xs');
-					this.game.playSound('bleep');
+					this.game.app.sounds.play('bleep');
 					break;
 				case 1:
 					this.game.bar.setMode('s');
-					this.game.playSound('bleep');
+					this.game.app.sounds.play('bleep');
 					break;
 				case 2:
 					this.game.bar.setMode('m');
-					this.game.playSound('bleep');
+					this.game.app.sounds.play('bleep');
 					break;
 				case 3:
 					this.game.bar.setMode('l');
-					this.game.playSound('bleep');
+					this.game.app.sounds.play('bleep');
 					break;
 				case 4:
 					this.game.bar.setMode('xl');
-					this.game.playSound('bleep');
+					this.game.app.sounds.play('bleep');
 					break;
 				case 5:
 					this.game.bar.glueMode=true;
@@ -160,7 +153,7 @@ var Goodie=new Class({
 					this.game.bar.maxShots=1;
 					this.game.bar.glueMode=false;
 					this.game.bar.speedLimit=5;
-					this.game.playSound('fart');
+					this.game.app.sounds.play('fart');
 					break;
 				case 9:
 					this.game.balls.push(new Ball(this.game));
@@ -195,44 +188,57 @@ var Goodie=new Class({
 				case 17:
 					this.game.bar.reverse=!this.game.bar.reverse;
 					break;
-				}
 			}
-		},
-	move : function(x,y,r) {
+		}
+	};
+
+	Goodie.prototype.move = function(x,y,r) {
 		var nextY=this.y + 0.5*this.speed;
-		if(nextY >this.game.height)
-			{
-			//this.game.playSound('crash');
+		if(nextY >this.game.height) {
+			//this.game.app.sounds.play('crash');
 			this.remove(false);
-			}
-		else if(this.x+(this.width/2)>this.game.bar.x
-						&&this.x-(this.width/2)<this.game.bar.x+this.game.bar.width
-						&&nextY+this.height>this.game.bar.y
-						&&nextY<this.game.bar.y+this.game.bar.height)
-			{
+		} else if(this.x+(this.width/2)>this.game.bar.x
+				&&this.x-(this.width/2)<this.game.bar.x+this.game.bar.width
+				&&nextY+this.height>this.game.bar.y
+				&&nextY<this.game.bar.y+this.game.bar.height) {
 			this.remove(true);
-			}
-		else
-			{
+		} else {
 			this.y=nextY;
-			}
-		},
-	hit : function(x,y,r) {
+		}
+	};
+
+	Goodie.prototype.hit = function(x,y,r) {
 		var hit=0;
 		if(x+r>this.x&&x-r<this.x+this.width
-			&&y+r>this.y&&y-r<this.y+this.height)
-			{
-			if(x>=this.x+this.width)
+			&&y+r>this.y&&y-r<this.y+this.height) {
+			if(x>=this.x+this.width) {
 				hit+=1 // hit on right
-			else if(x<=this.x)
+			} else if(x<=this.x) {
 				hit+=2 // hit on left
-			if(y>=this.y+this.height)
+			}
+			if(y>=this.y+this.height) {
 				hit+=4; // hit on bottom
-			else if(y<=this.y)
+			} else if(y<=this.y) {
 				hit+=8 // hit on top
 			}
-		return hit;
-		},
-	destruct : function() {
 		}
-});
+		return hit;
+	};
+
+
+
+// END: Module logic end
+
+	return Goodie;
+
+});})(this,typeof define === 'function' && define.amd ? define :
+		function (name, deps, factory) {
+	var root=this;
+	if(typeof name === 'object') {
+		factory=deps; deps=name; name='Goodie';
+	}
+	this[name.substring(name.lastIndexOf('/')+1)]=factory.apply(
+			this, deps.map(function(dep){
+		return root[dep.substring(dep.lastIndexOf('/')+1)];
+	}));
+}.bind(this));
