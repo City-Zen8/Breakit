@@ -1,9 +1,8 @@
 // AMD + Global: r.js compatible
 // Use START + END markers to keep module content only
 (function(root,define){ define(['LazerShot','GunShot'],
-	function(LazerShot, Gunshot) {
+	function(LazerShot, GunShot) {
 // START: Module logic start
-
 
 	// Constructor
 	function Bar (game) {
@@ -68,7 +67,7 @@
 
 	Bar.prototype.fire = function() {
 		if(this.fireMode&&this.shots.length<=this.maxShots) {
-			this.shots.push(new root[this.fireMode+'Shot'](
+			this.shots.push(new (this.fireMode=='Lazer'?LazerShot:GunShot)(
 				this.game, this.x+(this.width/2), this.y
 			));
 		}

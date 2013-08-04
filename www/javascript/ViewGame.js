@@ -13,7 +13,6 @@
 	ViewGame.prototype.init=function (app,name) {
 		// Calling the parent method
 		View.prototype.init.bind(this)(app,name);
-		console.log('test');
 		// Registering view commands
 		this.command('reset');
 		this.command('pause');
@@ -21,6 +20,8 @@
 		this.command('exit');
 		// Selecting template elements
 		this.element=this.content.querySelector('p.canvas');
+		this.pauseButton=this.content.querySelector('a[href="app:Game/pause"]');
+		this.resumeButton=this.content.querySelector('a[href="app:Game/resume"]');
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.rootPath='';
@@ -40,9 +41,7 @@
 			this.context = this.canvas.getContext('2d');
 			this.reset();
 			this.initEvents();
-		console.log('test3');
 		}
-		console.log('test2');
 		// Setting defaults
 		this._gameOver=false;
 		// Requesting the first draw
@@ -53,6 +52,7 @@
 	ViewGame.prototype.exit = function() {
 		this.pause();
 		this.removeEvents();
+		this.app.showView('Home');
 	};
 
 	ViewGame.prototype.reset = function() {
@@ -72,11 +72,15 @@
 	ViewGame.prototype.pause = function() {
 		clearTimeout(this.timer);
 		this.timer=0;
+		this.pauseButton.setAttribute('disabled','disabled');
+		this.resumeButton.removeAttribute('disabled');
 	};
 
 	ViewGame.prototype.resume = function() {
 		if(!this.timer)
 			this.timer=setTimeout(this.main.bind(this),30);
+		this.pauseButton.removeAttribute('disabled');
+		this.resumeButton.setAttribute('disabled','disabled');
 	};
 
 	ViewGame.prototype.resize = function() {
@@ -90,8 +94,8 @@
 	};
 
 	ViewGame.prototype.fit = function() {
-		this.width=this.canvas.offsetWidth;
-		this.height=this.canvas.offsetHeight;
+		this.width=this.element.offsetWidth;
+		this.height=this.element.offsetHeight;
 		this.canvas.width=this.width;
 		this.canvas.height=this.height;
 		this.canvas.style.display='block';
@@ -213,23 +217,29 @@
 
 	/* Events management */
 	ViewGame.prototype.initEvents = function() {
-		this.canvas.addEventListener('mousemove',this.moveHandler.bind(this));
-		this.canvas.addEventListener('click',this.clickHandler.bind(this),true);
-		this.canvas.addEventListener('contextmenu',this.clickHandler.bind(this),true);
-		window.addEventListener('keydown',this.keyDownHandler.bind(this),true);
-		window.addEventListener('keyup',this.keyUpHandler.bind(this),true);
-		window.addEventListener('deviceorientation', this.orientationHandler.bind(this), true);
-		window.addEventListener('resize', this.resize.bind(this), true);
+		this.moveHandler=this.moveHandler.bind(this);
+		this.clickHandler=this.clickHandler.bind(this);
+		this.keyDownHandler=this.keyDownHandler.bind(this);
+		this.keyUpHandler=this.keyUpHandler.bind(this);
+		this.orientationHandler=this.orientationHandler.bind(this);
+		this.resize=this.resize.bind(this);
+		this.canvas.addEventListener('mousemove',this.moveHandler);
+		this.canvas.addEventListener('click',this.clickHandler,true);
+		this.canvas.addEventListener('contextmenu',this.clickHandler,true);
+		window.addEventListener('keydown',this.keyDownHandler,true);
+		window.addEventListener('keyup',this.keyUpHandler,true);
+		window.addEventListener('deviceorientation', this.orientationHandler, true);
+		window.addEventListener('resize', this.resize, true);
 	};
 
 	ViewGame.prototype.removeEvents = function() {
-		this.canvas.removeEvents('mousemove');
-		this.canvas.removeEvents('click');
-		this.canvas.removeEvents('contextmenu');
-		window.removeEvents('keydown');
-		window.removeEvents('keyup');
-		window.removeEvents('deviceorientation');
-		window.removeEvents('resize');
+		this.canvas.removeEventListener('mousemove',this.moveHandler);
+		this.canvas.removeEventListener('click',this.clickHandler,true);
+		this.canvas.removeEventListener('contextmenu',this.clickHandler,true);
+		window.removeEventListener('keydown',this.keyDownHandler,true);
+		window.removeEventListener('keyup',this.keyUpHandler,true);
+		window.removeEventListener('deviceorientation', this.orientationHandler, true);
+		window.removeEventListener('resize', this.resize, true);
 	};
 
 	ViewGame.prototype.orientationHandler = function(e) {
@@ -245,12 +255,12 @@
 	};
 
 	ViewGame.prototype.moveHandler = function(e) {
-		var x=e.page.x-this.canvas.getPosition().x-(this.bar.width/2);
+		var x=e.pageX-this.canvas.offsetLeft-(this.bar.width/2);
 		this.bar.moveTo(x);
 	};
 
 	ViewGame.prototype.clickHandler = function(e) {
-		if(e.rightClick) {
+		if(2===e.button) {
 			this.bar.fire();
 		} else {
 			for(var i=this.balls.length-1; i>=0; i--) {
@@ -266,11 +276,11 @@
 
 	ViewGame.prototype.keyDownHandler = function(e) {
 		var used=true;
-		switch(e.key) {
-			case 'left':
+		switch(e.keyCode) {
+			case 37:
 				this.bar.setDirection(-1);
 				break;
-			case 'right':
+			case 39:
 				this.bar.setDirection(1);
 				break;
 			default:
@@ -285,15 +295,15 @@
 
 	ViewGame.prototype.keyUpHandler = function(e) {
 		var used=true;
-		switch(e.key) {
-			case 'space':
+		switch(e.keyCode) {
+			case 32:
 				this.bar.fire();
 				break;
-			case 'left':
-			case 'right':
+			case 37:
+			case 39:
 				this.bar.setDirection(0);
 				break;
-			case 'up':
+			case 38:
 				for(var i=this.balls.length-1; i>=0; i--) {
 					if(!this.balls[i].speed) {
 						this.balls[i].start();

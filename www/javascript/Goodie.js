@@ -1,6 +1,6 @@
 // AMD + Global: r.js compatible
 // Use START + END markers to keep module content only
-(function(root,define){ define([], function() {
+(function(root,define){ define(['Ball'], function(Ball) {
 // START: Module logic start
 
 	// Constructor

@@ -10,15 +10,15 @@
 		this.height = 2*this.game.aspectRatio;
 		this.x = x;
 		this.y = y;
-		this.game.sounds.play('gunshot');
+		this.game.app.sounds.play('gunshot');
 	}
 
-	Gunshot.prototype.draw = function() {
+	GunShot.prototype.draw = function() {
 		this.game.context.fillStyle = "#ff0000";
 		this.game.context.fillRect(this.x, this.y, this.width, this.height);
 	};
 
-	Gunshot.prototype.move = function() {
+	GunShot.prototype.move = function() {
 		this.y-=this.height/4;
 		if(this.y<0) {
 			this.remove();
@@ -38,11 +38,11 @@
 		}
 	};
 
-	Gunshot.prototype.remove = function() {
+	GunShot.prototype.remove = function() {
 		this.game.bar.shots.splice(this.game.bar.shots.indexOf(this),1);
 	};
 
-	Gunshot.prototype.clear = function() {
+	GunShot.prototype.clear = function() {
 		this.game.context.clearRect(this.x-(this.width/2)-1, 0,
 			this.width+2, this.height);
 	};
