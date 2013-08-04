@@ -11,8 +11,7 @@
  */
 
 var Game=new Class({
-	initialize: function(element, rootPath,localizeFunction,noticeFunction)
-		{
+	initialize: function(element, rootPath,localizeFunction,noticeFunction) {
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.element=element;
@@ -27,22 +26,18 @@ var Game=new Class({
 				window.webkitRequestAnimationFrame ||
 				window.mozRequestAnimationFrame ||
 				window.oRequestAnimationFrame ||
-				window.msRequestAnimationFrame ||null})();
+				window.msRequestAnimationFrame ||null
+		})();
 		this.fit();
 		while(element.childNodes[0])
 			element.removeChild(element.childNodes[0]);
-		if(this.canvas.getContext)
-			{
+		if(this.canvas.getContext) {
 			element.appendChild(this.canvas);
 			this.context = this.canvas.getContext('2d');
 			this.reset();
 			this.initEvents();
 			this.initSounds();
-			}
-		else
-			{
-			element.appendChild(document.createTextNode('Go buy a real browser !'));
-			}
+		}
 		// Setting defaults
 		this._gameOver=false;
 		// Requesting the first draw

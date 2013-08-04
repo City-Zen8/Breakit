@@ -10,7 +10,7 @@
 			alert('Ooops, you are using an old browser. Please come back with a recenter one.');
 			document.location.href="http://browsehappy.com/";
 		</script><![endif]-->
-		<!-- Requirejs : uncomment for development DEV--
+		<!-- Requirejs : uncomment for development DEV-->
 		<script data-main="javascript/Application"
 			src="javascript/libs/requirejs/require.js" type="text/javascript"></script>
 		<!-- -->
@@ -30,13 +30,13 @@
 	<body>
 		<div class="app">
 		<div class="message"><p>-</p></div>
-			<div class="view selected" id="loading">
+			<div class="view selected" id="Loading">
 				<p>Loading...<br />Please wait !</p>
 			</div>
 			<div class="view" id="Home">
-				<h1>BreakIT</h1>
+				<h1>BreakIt!</h1>
 				<ul class="menu">
-					<li><a href="app:changeView?view=Mono"
+					<li><a href="app:changeView?view=Game"
 						title="Play a new game">Play</a></li>
 					<li><a href="app:changeView?view=Options"
 						title="Set game options">Options</a></li>
@@ -79,28 +79,42 @@
 			</div>
 			<div class="view" id="Credits">
 				<h1>Credits</h1>
-				<p class="text">
-					Thanks to people who made this game possible:
-				</p>
-				<ul class="text">
-					<li>Sound &nbsp;: <a href="" title="View the author website"></a></li>
-				</ul>
+				<div class="text">
+					<p>
+						Thanks to people who made this game possible:
+					</p>
+					<ul>
+						<li>Sound &nbsp;: <a href="" title="View the author website"></a></li>
+					</ul>
+				</div>
 				<p class="menu"><a href="app:changeView?view=Home" title="Back to home">Back</a></p>
 			</div>
 			<div class="view" id="About">
 				<h1>About this game</h1>
-				<p class="text">
-					This BreakIt game has been made by <a href="http://insertafter.com/blog.html">Nicolas Froidure</a>
-					to illustrate JavaScript/HTML5 application development. You can find
-						<a href="https://github.com/nfroidure/Breakit" title="View source">its source</a> on GitHub.
-				</p>
-				<p class="text">
-					You can reuse and/or modify it since it's licenced as a GNU/GPL software.
-				</p>
+				<div class="text">
+					<p>
+						This BreakIt game has been made by <a href="http://insertafter.com/blog.html">Nicolas Froidure</a>
+						to illustrate JavaScript/HTML5 application development. You can find
+							<a href="https://github.com/nfroidure/Breakit" title="View source">its source</a> on GitHub.
+					</p>
+					<p>
+						You can reuse and/or modify it since it's licenced as a GNU/GPL software.
+					</p>
+				</div>
 				<p class="menu"><a href="app:changeView?view=Home" title="Back to home">Back</a></p>
 			</div>
+			<div class="view" id="Update">
+				<h1>Update</h1>
+				<div class="text">
+					<p>A new version is now available, would you like to try her?</p>
+				</div>
+				<p class="menu">
+						<a href="app:changeView?view=Home" title="Back to home">Cancel</a>
+						<a href="app:Update/update" title="Refresh the game">Update</a>
+				</p>
+			</div>
 		</div>
-		<!-- Production : comment for development PROD-->
+		<!-- Production : comment for development PROD--
 		<script src="javascript/production.js" type="text/javascript"></script>
 		<!-- -->
 	</body>
