@@ -19,6 +19,9 @@
 		this.command('resume');
 		this.command('exit');
 		// Selecting template elements
+		this.livesDisplayer=this.content.querySelector('span.lives span').firstChild;
+		this.scoreDisplayer=this.content.querySelector('span.score span').firstChild;
+		this.timeDisplayer=this.content.querySelector('span.time span').firstChild;
 		this.element=this.content.querySelector('p.canvas');
 		this.pauseButton=this.content.querySelector('a[href="app:Game/pause"]');
 		this.resumeButton=this.content.querySelector('a[href="app:Game/resume"]');
@@ -153,17 +156,10 @@
 		if(this.timer) {
 			// Clearing everything
 			this.context.clearRect(0, 0, this.width, this.height);
-			// Drawing scores/lives
-			//this.context.clearRect(9, 9, this.width, 10*this.aspectRatio);
-			this.context.fillStyle = '#000000';
-			this.context.font=(10*this.aspectRatio)+'px Arial';
-			this.context.textBaseline='top';
-			this.context.textAlign='left';
-			this.context.fillText(this.localize('lives','$ lives', this.bar.lives),
-				10, 10,300);
-			this.context.textAlign='right';
-			this.context.fillText(this.localize('score','Score: $', this.score),
-				this.width-10, 10,300);
+			// Drawing scores/lives/time
+			this.timeDisplayer='0\'00';
+			this.livesDisplayer.textContent=this.bar.lives;
+			this.scoreDisplayer.textContent=this.score;
 			// Drawing objects
 			for(var i=this.bricks.length-1; i>=0; i--) {
 				this.bricks[i].draw();
