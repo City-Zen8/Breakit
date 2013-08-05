@@ -21,7 +21,7 @@
 		// Selecting template elements
 		this.livesDisplayer=this.content.querySelector('span.lives span').firstChild;
 		this.scoreDisplayer=this.content.querySelector('span.score span').firstChild;
-		this.timeDisplayer=this.content.querySelector('span.time span').firstChild;
+		this.levelDisplayer=this.content.querySelector('span.level span').firstChild;
 		this.element=this.content.querySelector('p.canvas');
 		this.pauseButton=this.content.querySelector('a[href="app:Game/pause"]');
 		this.resumeButton=this.content.querySelector('a[href="app:Game/resume"]');
@@ -99,7 +99,7 @@
 		var delta=time-(this.lastDrawTime||0);
 		this.lastDrawTime=time;
 		
-		this.timeDisplayer.textContent=0|(1000/delta);
+		//this.levelDisplayer.textContent=0|(1000/delta);
 		if(!this.bar.lives) {
 			this.balls=new Array();
 			this.pause();
@@ -138,7 +138,7 @@
 			// Clearing everything
 			this.context.clearRect(0, 0, this.width, this.height);
 			// Drawing scores/lives/time
-			// this.timeDisplayer.textContent='0\'00';
+			this.levelDisplayer.textContent=this.level;
 			this.livesDisplayer.textContent=this.bar.lives;
 			this.scoreDisplayer.textContent=this.score;
 			// Drawing objects
