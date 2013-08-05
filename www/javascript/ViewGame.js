@@ -58,7 +58,7 @@
 			this.score=0;
 			this.time=0;
 			this.populate();
-			this.notice(this.localize('level','Level $',this.level));
+			this.app.showMessage(this.localize('level','Level $',this.level),3000);
 			this.resume();
 	};
 
@@ -101,19 +101,14 @@
 		
 		this.timeDisplayer.textContent=0|(1000/delta);
 		if(!this.bar.lives) {
-			if(!this._gameOver) {
-				this.balls=new Array();
-				this.notice(this.localize('gameover','Game Over'));
-				this._gameOver=true;
-				this._gameOverCountdown=1000;
-			} else if(this._gameOverCountdown<=0) {
-				this.reset();
-			}
+			this.balls=new Array();
+			this.pause();
+			this.app.showMessage(this.localize('gameover','Game Over'),3000,this.reset.bind(this));
 		}
 		if(!this.bricks.length) {
 			this.app.sounds.play('badadum');
 			this.level++;
-			this.notice(this.localize('level','Level $',this.level));
+			this.app.showMessage(this.localize('level','Level $',this.level),3000);
 			for(var i=this.balls.length-1; i>=0; i--) {
 				this.balls[i].speed=0;
 			}
@@ -132,12 +127,6 @@
 			}
 			for(var i=this.goodies.length-1; i>=0; i--) {
 				this.goodies[i].move(delta);
-			}
-			if(this._notice) {
-				this._noticeDelay--;
-			}
-			if(this._gameOver) {
-				this._gameOverCountdown--;
 			}
 			this.draw();
 			this.timer=requestAnimationFrame(this.main.bind(this));
@@ -166,26 +155,6 @@
 			for(var i=this.bar.shots.length-1; i>=0; i--) {
 				this.bar.shots[i].draw();
 			}
-			// Drawing notices
-			if(this._notice) {
-				if(this._noticeDelay>0) {
-					this.context.fillStyle = '#000000';
-				} else {
-					this.context.strokeStyle='#FFFFFF';
-					this.context.fillStyle = '#FFFFFF';
-				}
-				this.context.font=(30*this.aspectRatio)+'px Arial';
-				this.context.textAlign='center';
-				this.context.textBaseline='middle';
-				this.context.fillText(this._notice,this.width/2, this.height/2);
-				if(this._noticeDelay<=0) {
-					this._notice='';
-				}
-			}
-		}
-		// Let's go to another draw
-		if(this.requestAnimFrame) {
-			this.requestAnimFrame.call(window,this.draw.bind(this));
 		}
 	};
 
@@ -307,12 +276,6 @@
 			e.preventDefault();
 			e.stopPropagation();
 		}
-	};
-
-	/* UI */
-	ViewGame.prototype.notice = function(message) {
-		this._notice=message;
-		this._noticeDelay=1000;
 	};
 
 	ViewGame.prototype.localize = function() {
