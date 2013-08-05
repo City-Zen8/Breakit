@@ -28,14 +28,6 @@
 		// Creating canvas
 		this.canvas=document.createElement('canvas');
 		this.rootPath='';
-		// Trying to request animation frame
-		this.requestAnimFrame = (function(){
-				return  window.requestAnimationFrame ||
-				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame ||
-				window.oRequestAnimationFrame ||
-				window.msRequestAnimationFrame ||null
-		})();
 		this.fit();
 		while(this.element.childNodes[0])
 			this.element.removeChild(this.element.childNodes[0]);
@@ -47,9 +39,6 @@
 		}
 		// Setting defaults
 		this._gameOver=false;
-		// Requesting the first draw
-		if(this.requestAnimFrame)
-			this.requestAnimFrame.call(window,this.draw.bind(this));
 	};
 
 	ViewGame.prototype.exit = function() {
@@ -67,13 +56,14 @@
 			this.shots=new Array();
 			this.level=1;
 			this.score=0;
+			this.time=0;
 			this.populate();
 			this.notice(this.localize('level','Level $',this.level));
 			this.resume();
 	};
 
 	ViewGame.prototype.pause = function() {
-		clearTimeout(this.timer);
+		cancelAnimationFrame(this.timer);
 		this.timer=0;
 		this.pauseButton.setAttribute('disabled','disabled');
 		this.resumeButton.removeAttribute('disabled');
@@ -81,7 +71,7 @@
 
 	ViewGame.prototype.resume = function() {
 		if(!this.timer)
-			this.timer=setTimeout(this.main.bind(this),30);
+			this.timer=requestAnimationFrame(this.main.bind(this));
 		this.pauseButton.removeAttribute('disabled');
 		this.resumeButton.setAttribute('disabled','disabled');
 	};
@@ -105,7 +95,11 @@
 		this.aspectRatio=this.height/200;
 	};
 
-	ViewGame.prototype.main = function() {
+	ViewGame.prototype.main = function(time) {
+		var delta=time-(this.lastDrawTime||0);
+		this.lastDrawTime=time;
+		
+		this.timeDisplayer.textContent=0|(1000/delta);
 		if(!this.bar.lives) {
 			if(!this._gameOver) {
 				this.balls=new Array();
@@ -129,15 +123,15 @@
 			this.populate();
 		}
 		if(this.timer) {
-			this.bar.move();
+			this.bar.move(delta);
 			for(var i=this.bar.shots.length-1; i>=0; i--) {
-				this.bar.shots[i].move();
+				this.bar.shots[i].move(delta);
 			}
 			for(var i=this.balls.length-1; i>=0; i--) {
-				this.balls[i].move();
+				this.balls[i].move(delta);
 			}
 			for(var i=this.goodies.length-1; i>=0; i--) {
-				this.goodies[i].move();
+				this.goodies[i].move(delta);
 			}
 			if(this._notice) {
 				this._noticeDelay--;
@@ -145,10 +139,8 @@
 			if(this._gameOver) {
 				this._gameOverCountdown--;
 			}
-			if(!this.requestAnimFrame) {
-				this.draw();
-			}
-			this.timer=setTimeout(this.main.bind(this),5);
+			this.draw();
+			this.timer=requestAnimationFrame(this.main.bind(this));
 		}
 	};
 
@@ -157,7 +149,7 @@
 			// Clearing everything
 			this.context.clearRect(0, 0, this.width, this.height);
 			// Drawing scores/lives/time
-			this.timeDisplayer='0\'00';
+			// this.timeDisplayer.textContent='0\'00';
 			this.livesDisplayer.textContent=this.bar.lives;
 			this.scoreDisplayer.textContent=this.score;
 			// Drawing objects

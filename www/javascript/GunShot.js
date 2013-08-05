@@ -15,11 +15,11 @@
 
 	GunShot.prototype.draw = function() {
 		this.game.context.fillStyle = "#ff0000";
-		this.game.context.fillRect(this.x, this.y, this.width, this.height);
+		this.game.context.fillRect(0|this.x, 0|this.y, 0|this.width, 0|this.height);
 	};
 
-	GunShot.prototype.move = function() {
-		this.y-=this.height/4;
+	GunShot.prototype.move = function(delta) {
+		this.y-=delta/10;
 		if(this.y<0) {
 			this.remove();
 		} else {

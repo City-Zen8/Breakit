@@ -15,7 +15,7 @@
 		this.speed=1;
 		this.lives=3;
 		this.reverse=false;
-		this.speedLimit=5;
+		this.speedLimit=8;
 		this.direction=0;
 		this.glueMode=false;
 		this.shots=new Array();
@@ -50,19 +50,8 @@
 	};
 
 	Bar.prototype.draw = function() {
-		this.game.context.clearRect(0, this.lastY,
-			this.game.width, this.game.height);
 		this.game.context.fillStyle = "#333";
-		this.game.context.fillRect(this.x, this.y, this.width, this.height);
-		this.lastX=this.x;
-		this.lastY=this.y;
-		this.lastWidth=this.width;
-		this.lastHeight=this.height;
-	};
-
-	Bar.prototype.clear = function() {
-		this.game.context.clearRect(0, this.lastY,
-			this.game.width, this.game.height);
+		this.game.context.fillRect(0|this.x, 0|this.y, 0|this.width, 0|this.height);
 	};
 
 	Bar.prototype.fire = function() {
@@ -86,12 +75,12 @@
 		}
 	};
 
-	Bar.prototype.move = function(e) {
+	Bar.prototype.move = function(delta) {
 		if(this.direction!=0) {
-			this.moveTo(this.x+((this.reverse?-1:1)*this.direction
-				*this.speed*this.game.aspectRatio/5));
+			this.moveTo(this.x+(((this.reverse?-1:1)*this.direction
+				*this.speed*(this.game.aspectRatio/5)*delta/10)));
 			if(this.speed<this.speedLimit) {
-				this.speed++;
+				this.speed+=1*(delta/10);
 			}
 		}
 	};

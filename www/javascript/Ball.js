@@ -22,26 +22,14 @@
 
 	Ball.prototype.draw = function() {
 		// Drawing
-		if(this.wonderMode) {
-			this.game.context.fillStyle = "#FF0000";
-		} else {
-			this.game.context.fillStyle = "#333";
-		}
+		this.game.context.fillStyle = (this.wonderMode ? "#FF0000" : "#333");
 		this.game.context.beginPath();
-		this.game.context.arc(this.x,this.y,this.r-1,0,Math.PI*2,true);
+		this.game.context.arc(0|this.x,0|this.y,0|(this.r-1),0,Math.PI*2,true);
 		this.game.context.fill();
-		this.lastX=this.x;
-		this.lastY=this.y;
-		this.lastR=this.r;
-	};
-
-	Ball.prototype.clear = function() {
-		this.game.context.clearRect(this.lastX-this.lastR, this.lastY-this.lastR,
-			this.lastR*2, this.lastR*2);
 	};
 
 	Ball.prototype.start = function() {
-		this.speed=(0.6+(this.game.level/10))*this.game.aspectRatio;
+		this.speed=(this.game.level/10)*this.game.aspectRatio;
 	};
 
 	Ball.prototype.stop = function() {
@@ -49,10 +37,10 @@
 		this.glueCounter = 400;
 	};
 
-	Ball.prototype.move = function() {
+	Ball.prototype.move = function(delta) {
 		if(this.speed) {
-			var nextX=this.x + Math.cos(this.angle)*this.speed;
-			var nextY=this.y + Math.sin(this.angle)*this.speed;
+			var nextX=this.x + (Math.cos(this.angle)*this.speed*delta);
+			var nextY=this.y + (Math.sin(this.angle)*this.speed*delta);
 			if(nextY >this.game.height) {
 				this.game.app.sounds.play('crash');
 				if(this.game.balls.length>1) {
@@ -116,7 +104,7 @@
 				}
 			}
 		} else {
-			this.glueCounter--;
+			this.glueCounter-=delta/10;
 			this.x=this.game.bar.x+this.game.bar.width/2;
 			this.y=this.game.bar.y-this.game.bar.height-(this.r/2);
 			if(this.glueCounter<1) {

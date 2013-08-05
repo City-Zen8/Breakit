@@ -20,13 +20,8 @@
 
 	LazerShot.prototype.draw = function() {
 		this.game.context.fillStyle = "#ff0000";
-		this.game.context.fillRect(this.x-(this.width/2), 0,
-			this.width, this.height);
-		};
-
-	LazerShot.prototype.clear = function() {
-		this.game.context.clearRect(this.x-(this.width/2)-1, 0,
-			this.width+2, this.height);
+		this.game.context.fillRect(1|(this.x-(this.width/2)), 0,
+			0|this.width, 0|this.height);
 	};
 
 	LazerShot.prototype.move = function() {

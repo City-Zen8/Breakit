@@ -10,6 +10,8 @@
 			alert('Ooops, you are using an old browser. Please come back with a recenter one.');
 			document.location.href="http://browsehappy.com/";
 		</script><![endif]-->
+		<!-- Polyfills -->
+		<script type="text/javascript" src="javascript/polyfills/requestAnimationFrame.js"></script>
 		<!-- Requirejs : uncomment for development DEV-->
 		<script data-main="javascript/Application"
 			src="javascript/libs/requirejs/require.js" type="text/javascript"></script>
@@ -50,7 +52,7 @@
 				<p class="infos"><span>
 					<span class="lives">Lives: <span>0</span></span>
 					<span class="score">Score: <span>0</span></span>
-					<span class="time">Time left: <span>0'00</span></span>
+					<span class="time">Time spent: <span>0'00</span></span>
 				</span></p>
 				<p class="canvas"></p>
 				<p class="menu">

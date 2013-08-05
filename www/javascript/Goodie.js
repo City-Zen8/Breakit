@@ -15,7 +15,14 @@
 		this.type = Math.floor(Math.random()*18);
 	}
 
+	// Consts
+	Goodie.TYPES=['XS', 'S', 'M', 'L', 'XL', 'Glue', 'Gun', 'Lazer', 'Doo', 'Ball',
+		 'Brake', 'Speed', 'Small', 'Medium', 'Big', 'Wonder', '1UP', 'Rev'];
+
 	Goodie.prototype.draw = function() {
+		var x=0|this.x, y=0|this.y,
+			w=0|this.width, mw=0|(this.width/2),
+			h=0|this.height, mh=0|(this.height/2);
 		switch(this.speed) {
 			case 1:
 				this.game.context.fillStyle = "#e76500"; // Normal
@@ -27,87 +34,23 @@
 				this.game.context.fillStyle = "#612c00"; // Hard
 				break;
 		}
-		this.game.context.fillRect(this.x+5, this.y, this.width-10, this.height);
+		this.game.context.fillRect(x+5, y, w-10, h);
 		this.game.context.beginPath();
-		this.game.context.moveTo(this.x,this.y+this.height/2);
-		this.game.context.lineTo(this.x+5,this.y);
-		this.game.context.lineTo(this.x+5,this.y+this.height);
+		this.game.context.moveTo(x,y+mh);
+		this.game.context.lineTo(x+5,y);
+		this.game.context.lineTo(x+5,y+h);
 		this.game.context.fill();
 		this.game.context.beginPath();
-		this.game.context.moveTo(this.x+this.width,this.y+this.height/2);
-		this.game.context.lineTo(this.x+this.width-5,this.y);
-		this.game.context.lineTo(this.x+this.width-5,this.y+this.height);
+		this.game.context.moveTo(x+w,y+mh);
+		this.game.context.lineTo(x+w-5,y);
+		this.game.context.lineTo(x+w-5,y+h);
 		this.game.context.fill();
 		this.game.context.fillStyle = '#ffffff';
 		this.game.context.strokeStyle = '#e76500';
 		this.game.context.textBaseline='top';
-		this.game.context.font=(this.height-2)+'px Helvetica bold, sans-serif';
+		this.game.context.font=(h-2)+'px Helvetica bold, sans-serif';
 		this.game.context.textAlign='center';
-		switch(this.type) {
-			case 0:
-				this.game.context.fillText('XS', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 1:
-				this.game.context.fillText('S', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 2:
-				this.game.context.fillText('M', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 3:
-				this.game.context.fillText('L', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 4:
-				this.game.context.fillText('XL', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 5:
-				this.game.context.fillText('Glue', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 6:
-				this.game.context.fillText('Gun', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 7:
-				this.game.context.fillText('Lazer', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 8:
-				this.game.context.fillText('Doo', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 9:
-				this.game.context.fillText('Ball', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 10:
-				this.game.context.fillText('Brake', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 11:
-				this.game.context.fillText('Speed', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 12:
-				this.game.context.fillText('Small', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 13:
-				this.game.context.fillText('Medium', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 14:
-				this.game.context.fillText('Big', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 15:
-				this.game.context.fillText('Wonder', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 16:
-				this.game.context.fillText('1UP', this.x+(this.width/2), this.y, this.width);
-				break;
-			case 17:
-				this.game.context.fillText('Rev', this.x+(this.width/2), this.y, this.width);
-				break;
-		}
-		this.lastX=this.x;
-		this.lastY=this.y;
-		this.lastWidth=this.width;
-		this.lastHeight=this.height;
-	};
-
-	Goodie.prototype.clear = function() {
-		this.game.context.clearRect(this.lastX-1, this.lastY-1,
-			this.lastWidth+2, this.lastHeight+2);
+		this.game.context.fillText(Goodie.TYPES[this.type], x+mw, y, w);
 	};
 
 	Goodie.prototype.remove = function(catched) {
@@ -192,10 +135,9 @@
 		}
 	};
 
-	Goodie.prototype.move = function(x,y,r) {
-		var nextY=this.y + 0.5*this.speed;
+	Goodie.prototype.move = function(delta) {
+		var nextY=this.y + (this.speed*delta/10);
 		if(nextY >this.game.height) {
-			//this.game.app.sounds.play('crash');
 			this.remove(false);
 		} else if(this.x+(this.width/2)>this.game.bar.x
 				&&this.x-(this.width/2)<this.game.bar.x+this.game.bar.width
