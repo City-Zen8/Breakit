@@ -87,12 +87,15 @@
 	};
 
 	ViewGame.prototype.fit = function() {
+		var canvasParent=this.canvas.parentNode;
+		canvasParent&&canvasParent.removeChild(this.canvas);
 		this.width=this.element.offsetWidth;
 		this.height=this.element.offsetHeight;
 		this.canvas.width=this.width;
 		this.canvas.height=this.height;
 		this.canvas.style.display='block';
 		this.aspectRatio=this.height/200;
+		canvasParent&&canvasParent.appendChild(this.canvas);
 	};
 
 	ViewGame.prototype.main = function(time) {

@@ -29,7 +29,7 @@
 	};
 
 	Ball.prototype.start = function() {
-		this.speed=0.20+((this.game.level/100)*this.game.aspectRatio);
+		this.speed=0.25+((this.game.level/100)*this.game.aspectRatio);
 	};
 
 	Ball.prototype.stop = function() {
