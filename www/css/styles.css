@@ -32,4 +32,7 @@ div#Game p.infos>span>span { display:table-cell; width:33%; text-align:center; }
 div#Game p.canvas { display:table-row; }
 div#Game p.canvas canvas { display:table-cell; }
 div#Game p.menu { height:50px; }
-
+/* Forms */
+div.view form { text-align:center; }
+div.view form label { font-size:16px; line-height:30px; }
+div.view form input { font-size:16px; line-height:30px; }
