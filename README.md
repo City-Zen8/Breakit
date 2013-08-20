@@ -1,7 +1,72 @@
-CasseBriques
+BreakIt
 ============
 
-CasseBriques is a free GNU/GPL game written in HTML5/JavaScript and created for learning purpose. French speaking developpers can get a step by step tutorial here : http://www.insertafter.com/articles-html5_casse_brique.html . English version will come soon.
+BreakIt is a free GNU/GPL game written in HTML5/JavaScript and created for learning purpose. French speaking developpers can get a step by step tutorial here : http://www.insertafter.com/articles-html5_casse_brique.html . English version will come soon.
+
+
+You can test it on : http://breakit.insertafter.com/index.html
+
+Requirements
+-------------
+* Modern web browser (Chrome, Firefox ...)
+* NodeJS + npm install websocket
+* Libs : RequireJS, Commandor, Sounds.
+
+Building
+-------------
+Web :
+```bash
+# Requirements
+npm install -g requirejs
+./libs.sh
+# Build
+./build.sh
+# Dev
+./dev.sh
+```
+
+Android :
+Reach the bin dir
+```
+cd materials/android/bin
+```
+Generate the key :
+```
+keytool -genkey -v -keystore breakit-key.keystore -alias breakit -keyalg RSA -keysize 2048 -validity 10000
+```
+Build for release :
+```
+cd ../
+ant release
+cd bin
+```
+Sign, then align :
+```
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore breakit-key.keystore Breakit-release-unsigned.apk breakit
+zipalign -v 4 Breakit-release-unsigned.apk Breakit-release-signed.apk
+```
+Launching
+-------------
+```bash
+node server.js
+```
+
+Testing
+-------------
+```bash
+npm install -g request mocha; mocha tests/*.mocha.js
+```
+
+Sounds
+-------------
+* Iwan Gabovitch - http://qubodup.net/
+* Devin Watson - http://opengameart.org/users/dklon
+* Brandon Morris - http://opengameart.org/users/dklon
+* A.J. Gillespie - http://opengameart.org/users/avgvst
+
+License
+-------
+Copyright Nicolas Froidure 2013.
 
 Contributors
 -------------
