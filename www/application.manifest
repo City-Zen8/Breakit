@@ -1,21 +1,15 @@
 CACHE MANIFEST
 # v 1.0
 index.html
-javascript/mootools-yui-compressed.js
-javascript/ball.js
-javascript/bar.js
-javascript/brick.js
-javascript/game.js
-javascript/goodie.js
-javascript/gunshot.js
-javascript/lazershot.js
-sounds/20352__cognito-perceptu__gunshot.ogg
-sounds/3062__speedy__bleep.ogg
-sounds/33675__pauliep83__crash.ogg
-sounds/37215__simon-lacelle__ba-da-dum.ogg
-sounds/46985__ifartinurgeneraldirection__toot.ogg
-sounds/48939__itsallhappening__boing.ogg
-sounds/77087__supraliminal__laser-short.ogg
-sounds/88451__davidou__boing.ogg
-lang/fr/game.lang
-datas/commands.dat
+javascript/production.js
+javascript/polyfills/requestAnimationFrame.js
+css/styles.js
+images/favicon.png
+sounds/gunshot.ogg
+sounds/bleep.ogg
+sounds/crash.ogg
+sounds/badadum.ogg
+sounds/fart.ogg
+sounds/boing.ogg
+sounds/lazer.ogg
+sounds/boing2.ogg

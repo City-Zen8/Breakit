@@ -28,6 +28,7 @@ mv /tmp/production.js javascript/production.js
 if [ "$2" != "" ]; then
 	cd ..
 	rsync -Haurov --exclude=/.git/ --exclude=/node_modules/ --exclude=/materials/ --exclude=/www/javascript/ ./ "$2:/home/elitwork/projects/games/breakit/"
+	scp www/javascript/polyfills/requestAnimationFrame.js "$2:/home/elitwork/projects/games/breakit/www/javascript/polyfills/requestAnimationFrame.js"
 	scp www/javascript/production.js "$2:/home/elitwork/projects/games/breakit/www/javascript/production.js"
 fi
 # Back to the right pwd

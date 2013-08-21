@@ -13,8 +13,8 @@
    inkscape:version="0.47 r22583"
    width="100%"
    height="100%"
-   sodipodi:docname="BreakIt.svg"
-   inkscape:export-filename="/home/nfroidure/Bureau/LocalServer/elitwork/xcms3/public/games/breakout/images/icon-48.png"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/home/nfroidure/Bureau/LocalServer/elitwork/projects/games/breakit/materials/android/res/drawable-mdpi/icon.png"
    inkscape:export-xdpi="33.75"
    inkscape:export-ydpi="33.75">
   <metadata
@@ -54,11 +54,13 @@
      showgrid="false"
      inkscape:zoom="5.6568544"
      inkscape:cx="106.73421"
-     inkscape:cy="68.236148"
+     inkscape:cy="66.821936"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="svg2"
+     showguides="true"
+     inkscape:guide-bbox="true" />
   <title
      id="title4">HTML5 Logo</title>
   <polygon
