@@ -3,7 +3,7 @@ CACHE MANIFEST
 index.html
 javascript/production.js
 javascript/polyfills/requestAnimationFrame.js
-css/styles.js
+css/styles.css
 images/favicon.png
 sounds/gunshot.ogg
 sounds/bleep.ogg
