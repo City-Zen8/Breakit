@@ -1,0 +1,27 @@
+{
+  "name": "BreakIt",
+  "version": "1.0.0",
+  "description": "Break bricks with class!",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "buildbranch gh-pages www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nfroidure/BreakIt.git"
+  },
+  "keywords": [
+    "breakit"
+  ],
+  "author": "Nicolas Froidure",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nfroidure/BreakIt/issues"
+  },
+  "homepage": "https://github.com/nfroidure/BreakIt",
+  "dependencies": {
+    "buildbranch": "0.0.2"
+  }
+}
