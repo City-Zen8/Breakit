@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify > www/javascript/production.js",
     "publish": "buildbranch gh-pages www"
   },
   "repository": {
@@ -21,7 +22,13 @@
     "url": "https://github.com/nfroidure/BreakIt/issues"
   },
   "homepage": "https://github.com/nfroidure/BreakIt",
-  "dependencies": {
+  "devDependencies": {
+    "browserify": "^9.0.3",
     "buildbranch": "0.0.2"
+  },
+  "dependencies": {
+    "commandor": "^0.1.2",
+    "requestanimationframe": "0.0.22",
+    "sounds": "^1.0.2"
   }
 }
