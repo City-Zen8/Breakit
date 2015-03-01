@@ -1,0 +1,15 @@
+CACHE MANIFEST
+# v 1.0
+index.html
+javascript/production.js
+javascript/polyfills/requestAnimationFrame.js
+css/styles.css
+images/favicon.png
+sounds/gunshot.ogg
+sounds/bleep.ogg
+sounds/crash.ogg
+sounds/badadum.ogg
+sounds/fart.ogg
+sounds/boing.ogg
+sounds/lazer.ogg
+sounds/boing2.ogg

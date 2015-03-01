@@ -1,0 +1,38 @@
+/* Initialization */
+* { padding:0; margin:0; }
+html, body, div.app { width:100%; height:100%; }
+/* Notifications */
+div.app div.message { display:none; margin: 0 auto; height: 0; }
+div.app div.message.show { display:block; }
+div.app div.message p { color:#fff; text-shadow:2px 2px 2px #666,-2px -2px 2px #000;
+			 text-align: center; font-weight: bold;
+			 transform: rotate(-5deg);
+			 -webkit-transform: rotate(-5deg);
+			 -moz-transform: rotate(-5deg);
+			 -ms-transform: rotate(-5deg);
+			}
+div.app div.message { width: 300px; }
+div.app div.message p { font-size: 60px; padding: 200px 0 0 0; }
+/* Views */
+div.view { display:none; width:100%; height:100%; }
+div.view.selected { display:table; }
+div.view h1 { display:table-row; text-align:center; height:50px; line-height:50px; color:#fff; background:#333; font-size:22px; font-weight:bold; }
+div.view ul.menu, div.view p.menu { display:table-row; line-height:50px; font-size:18px; font-weight:bold; text-align:center; background:#333; vertical-align:middle; }
+div.view p.menu { height:50px; }
+div.view ul.menu li { list-style-type:none; }
+div.view .menu a { display:inline-block; background:#999; color:#fff; text-decoration:none; padding:0 10px; margin:0 10px; line-height:30px; }
+div.view .menu a[disabled] { background:#666; color:#333; }
+div.view .menu a:not([disabled]):hover { background:#fff; color:#000; }
+div.view div.text { display:table-cell; text-align:center; vertical-align:middle; padding:15px 0; }
+div.view div.text p { padding:0 0 15px 0; }
+/* Game View */
+div#Game p.infos { display:table-row; height:50px; color:#fff; background:#333; line-height:50px; font-size:18px; font-weight:bold; }
+div#Game p.infos>span { display:table; width:100%; }
+div#Game p.infos>span>span { display:table-cell; width:33%; text-align:center; }
+div#Game p.canvas { display:table-row; }
+div#Game p.canvas canvas { display:table-cell; }
+div#Game p.menu { height:50px; }
+/* Forms */
+div.view form { text-align:center; }
+div.view form label { font-size:16px; line-height:30px; }
+div.view form input { font-size:16px; line-height:30px; }
